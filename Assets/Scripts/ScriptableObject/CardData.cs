@@ -17,8 +17,7 @@ public class CardData : ScriptableObject
     public TargetType targetType;
 
     [Header("효과 수치")]
-    public int damage;              // 공격력
-    public int block;               // 방어력
+    public int value;
 
 }
 

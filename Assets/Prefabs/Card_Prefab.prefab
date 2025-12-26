@@ -148,6 +148,8 @@ GameObject:
   - component: {fileID: 2888158160445598791}
   - component: {fileID: 2351563019557231035}
   - component: {fileID: 7050860549575871352}
+  - component: {fileID: 1589095358425537916}
+  - component: {fileID: 4067967820096845423}
   m_Layer: 5
   m_Name: Card_Prefab
   m_TagString: Untagged
@@ -202,6 +204,30 @@ MonoBehaviour:
   descriptionText: {fileID: 4190489252753486712}
   costText: {fileID: 2091205151651177040}
   cardImage: {fileID: 4147965939149549238}
+--- !u!114 &1589095358425537916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 957760640683086285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6582347505a69e4cba86c3c4574c2cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CardMovement
+--- !u!225 &4067967820096845423
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 957760640683086285}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2425308918077424275
 GameObject:
   m_ObjectHideFlags: 0
