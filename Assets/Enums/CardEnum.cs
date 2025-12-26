@@ -2,10 +2,10 @@ using UnityEngine;
 
 public enum CardType
 {
-    Attack,   // 공격
-    Skill,    // 스킬
-    Power,    // 파워
-    Curse     // 저주
+    Attack,   
+    Skill,    
+    Power,    
+    Curse     
 }
 
 public enum CardRarity

@@ -5,11 +5,11 @@ using UnityEngine;
 public class CardData : ScriptableObject
 {
     [Header("기본 정보")]
-    public string cardName;         // 카드 이름
+    public string cardName;         
     [TextArea]
-    public string description;      // 카드 설명 
-    public Sprite cardImage;        // 카드 일러스트
-    public int energyCost;          // 소모 에너지
+    public string description;       
+    public Sprite cardImage;        
+    public int energyCost;          
 
     [Header("분류 정보")]
     public CardType cardType;

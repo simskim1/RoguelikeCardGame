@@ -5,11 +5,11 @@ using UnityEngine.InputSystem;
 public class DeckManager : MonoBehaviour
 {
     [Header("카드 데이터 설정")]
-    public List<CardData> allCards; // 게임에서 사용할 전체 카드 리스트 (DB 역할)
+    public List<CardData> allCards; 
 
     [Header("UI 연결")]
-    public GameObject cardPrefab;  // 방금 만든 카드 프리팹
-    public Transform handParent;   // 카드가 배치될 부모 오브젝트 (Hand)
+    public GameObject cardPrefab;  
+    public Transform handParent;   // 카드가 배치될 부모 오브젝트
 
     // 실시간 카드 더미들
     private List<CardData> drawPile = new List<CardData>();
@@ -57,7 +57,7 @@ public class DeckManager : MonoBehaviour
     {
         for (int i = 0; i < count; i++)
         {
-            // 1. 뽑을 카드가 없으면 버린 카드 더미를 다시 가져옴
+            // 뽑을 카드가 없으면 버린 카드 더미를 다시 가져옴
             if (drawPile.Count == 0)
             {
                 if (discardPile.Count == 0) return; // 더 이상 카드가 없음
@@ -67,18 +67,18 @@ public class DeckManager : MonoBehaviour
                 Shuffle(drawPile);
             }
 
-            // 2. 맨 위 카드 한 장 뽑기
+            // 맨 위 카드 한 장 뽑기
             CardData card = drawPile[0];
             drawPile.RemoveAt(0);
-            hand.Add(card);
+            hand.Add(card);//핸드 리스트에 추가
 
-            // --- 추가된 코드: 실제 UI 생성 ---
-            GameObject newCard = Instantiate(cardPrefab, handParent);
-            CardDisplay display = newCard.GetComponent<CardDisplay>();
+            
+            GameObject newCard = Instantiate(cardPrefab, handParent);//카드 프리팹으로 오브젝트 생성
+            CardDisplay display = newCard.GetComponent<CardDisplay>();// 그 오브젝트의 CardDisplay의 내용들을 가져옴
 
             if (display != null)
             {
-                display.Setup(card);
+                display.Setup(card);//뽑은 카드에 대한 Setup을 실행
             }
             Debug.Log($"{card.cardName}을(를) 뽑았습니다.");
 
