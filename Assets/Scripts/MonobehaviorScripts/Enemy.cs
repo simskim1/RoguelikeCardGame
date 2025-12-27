@@ -1,30 +1,42 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Unity.VisualScripting;
 
 
 public class Enemy : MonoBehaviour, IDropHandler
 {
-    public EnemyData enemyData; 
+    public static Enemy Instance; // 접근 편의를 위한 싱글톤
+
+    public EnemyData[] enemyData;//일단은 배열이 하나이지만, 나중에 래퍼 클래스를 이용하여 랜덤으로 결정된 어느 챕터의 일반, 엘리트, 또는 보스의 어느 몬스터가 나올지를 결정하게 할 수 있다.
+    public int enemyWho { get; private set; }
     private int _currentHp;
 
     [SerializeField] private Slider hpSlider; // UI 슬라이더 연결
     private Image _enemyImage;
 
-    void Start()
+    private void Awake()
     {
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject); // 중복 방지
+        init();
+    }
+
+    void init()
+    {
+        enemyWho = Random.Range(0, 2);
         // 자신의 Image 컴포넌트 가져오기
         _enemyImage = GetComponent<Image>();
 
         if (enemyData != null)
         {
             // SO에 저장된 이미지로 변경
-            if (_enemyImage != null && enemyData.enemyImage != null)
+            if (_enemyImage != null && enemyData[enemyWho].enemyImage != null)
             {
-                _enemyImage.sprite = enemyData.enemyImage;//이 오브젝트의 컴포넌트인 ememyimage의 스프라이트를 enemyData에 저장된 이미지로 변경
+                _enemyImage.sprite = enemyData[enemyWho].enemyImage;//이 오브젝트의 컴포넌트인 ememyimage의 스프라이트를 enemyData에 저장된 이미지로 변경
             }
 
-            _currentHp = enemyData.maxHp;//현재체력도 변경.
+            _currentHp = enemyData[enemyWho].maxHp;//현재체력도 변경.
             UpdateHpUI();
         }
     }
@@ -32,9 +44,9 @@ public class Enemy : MonoBehaviour, IDropHandler
     public void TakeDamage(int amount)
     {
         _currentHp -= amount;
-        _currentHp = Mathf.Clamp(_currentHp, 0, enemyData.maxHp); // 체력 하한/상한 고정
+        _currentHp = Mathf.Clamp(_currentHp, 0, enemyData[enemyWho].maxHp); // 체력 하한/상한 고정
 
-        Debug.Log($"{enemyData.enemyName}이(가) {amount}의 데미지를 입음! 남은 체력: {_currentHp}");
+        Debug.Log($"{enemyData[enemyWho].enemyName}이(가) {amount}의 데미지를 입음! 남은 체력: {_currentHp}");
 
         UpdateHpUI();
 
@@ -49,7 +61,7 @@ public class Enemy : MonoBehaviour, IDropHandler
         if (hpSlider != null)
         {
             // 슬라이더의 Value는 0~1 사이이므로 비율로 계산
-            hpSlider.value = (float)_currentHp / enemyData.maxHp;//이 오브젝트의 슬라이더의 값 조정
+            hpSlider.value = (float)_currentHp / enemyData[enemyWho].maxHp;//이 오브젝트의 슬라이더의 값 조정
         }
     }
 
@@ -65,14 +77,16 @@ public class Enemy : MonoBehaviour, IDropHandler
 
         // 드래그한 오브젝트에서 카드 정보 가져오기
         CardDisplay card = draggedObject.GetComponent<CardDisplay>();// 디스플레이를 경유해 CardData에 접속하는 이유는 CardData에 직접적으로 접근할 수 없기 때문. SO는 변수이기에, CardDisplay에 저장된 CardData라는 변수의 정보를 가져온다. 라고 접근해야함.
-        Enemy enemy = GetComponent<Enemy>();
-
-        if (card != null && enemy != null)
+        
+        if (card != null)
         {
             // 공격 카드일 때만 데미지 주기
-            if (card.cardData.cardType == CardType.Attack)
+            if (card.cardData.cardType == CardType.Attack && BattleManager.Instance.CanUseCard(card.cardData.energyCost))
             {
-                enemy.TakeDamage(card.cardData.value);
+                TakeDamage(card.cardData.value);
+                BattleManager.Instance.UseEnergy(card.cardData.energyCost);
+                DeckManager.Instance.DiscardCard(card.cardData);
+                Destroy(draggedObject);
             }
         }
     }

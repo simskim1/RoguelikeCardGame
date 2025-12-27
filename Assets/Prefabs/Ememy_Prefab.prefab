@@ -147,7 +147,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 200, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9074183981470806032
@@ -200,7 +200,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ddfab6117e7e774da10da1309d30d33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  enemyData: {fileID: 11400000, guid: 21eab2078dc5f8f46b758f4ac02fba73, type: 2}
+  enemyData:
+  - {fileID: 11400000, guid: ee9e30dc0cb7d3f40bbbd9614c998672, type: 2}
+  - {fileID: 11400000, guid: 21eab2078dc5f8f46b758f4ac02fba73, type: 2}
   hpSlider: {fileID: 2889280559248356815}
 --- !u!1 &6373567156622668414
 GameObject:

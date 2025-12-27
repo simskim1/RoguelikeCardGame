@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 
 public class DeckManager : MonoBehaviour
 {
+    public static DeckManager Instance; // 접근 편의를 위한 싱글톤
+
     [Header("카드 데이터 설정")]
     public List<CardData> allCards; 
 
@@ -18,6 +20,11 @@ public class DeckManager : MonoBehaviour
 
     public int firstDrawCard = 5;
 
+    private void Awake()
+    {
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject); // 중복 방지
+    }
     void Start()
     {
         //시작할 때 모든 카드를 뽑을 더미에 넣고 섞은 후 첫 번째 턴 드로우 매수만큼 뽑는다.
@@ -83,6 +90,15 @@ public class DeckManager : MonoBehaviour
             Debug.Log($"{card.cardName}을(를) 뽑았습니다.");
 
             // TODO: 여기서 실제로 화면(UI)에 카드를 생성하는 코드 호출 필요!
+        }
+    }
+
+    //카드를 DiscardPlle에 보낸 후 자신을 destroy
+    public void DiscardCard(CardData card)
+    {
+        discardPile.Add(card);
+        for (int i = 0; i < discardPile.Count; i++) {
+            Debug.Log($"{discardPile[i].cardName}가 묘지로 갔습니다");
         }
     }
 }
