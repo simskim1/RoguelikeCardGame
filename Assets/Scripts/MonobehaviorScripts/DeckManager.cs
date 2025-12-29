@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.XR;
 
 public class DeckManager : MonoBehaviour
 {
@@ -88,17 +90,40 @@ public class DeckManager : MonoBehaviour
                 display.Setup(card);//뽑은 카드에 대한 Setup을 실행
             }
             Debug.Log($"{card.cardName}을(를) 뽑았습니다.");
+            int hcount = hand.Count;
+            for (int j = 0; j < hcount; j++)
+            {
+                Debug.Log($"{hand[j].cardName}, ");
+            }
 
             // TODO: 여기서 실제로 화면(UI)에 카드를 생성하는 코드 호출 필요!
         }
     }
 
-    //카드를 DiscardPlle에 보낸 후 자신을 destroy
-    public void DiscardCard(CardData card)
+    //끌어서 사용한 카드를 DiscardPlle에 보내기(destroy는 이 함수를 사용하는 쪽이 받은 오브젝트에 destroy넣어주기)
+    public void DiscardCardDragged(CardData card, PointerEventData eventData)
     {
+        int count = hand.Count;
+        int index = hand.IndexOf(card);
         discardPile.Add(card);
+        hand.RemoveAt(index);
         for (int i = 0; i < discardPile.Count; i++) {
             Debug.Log($"{discardPile[i].cardName}가 묘지로 갔습니다");
+        }
+    }
+
+    //내 패 전부를 DiscardPile에 보내기
+    public void DiscardHand()
+    {
+        int count = hand.Count;
+        for (int i = 0; i < count; i++)
+        {
+            discardPile.Add(hand[0]);
+            hand.RemoveAt(0);
+        }
+        foreach (Transform child in handParent)
+        {
+            Destroy(child.gameObject);
         }
     }
 }

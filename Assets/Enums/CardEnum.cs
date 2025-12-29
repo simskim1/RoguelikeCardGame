@@ -23,3 +23,12 @@ public enum TargetType
     AllEnemies,     
     None            
 }
+
+public enum BattleState
+{
+    Start,      
+    PlayerTurn, 
+    EnemyTurn, 
+    Win,
+    Lose
+}

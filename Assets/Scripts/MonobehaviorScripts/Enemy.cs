@@ -1,7 +1,9 @@
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
+using System.Collections;
 using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+using static EnemyData;
 
 
 public class Enemy : MonoBehaviour, IDropHandler
@@ -10,10 +12,13 @@ public class Enemy : MonoBehaviour, IDropHandler
 
     public EnemyData[] enemyData;//일단은 배열이 하나이지만, 나중에 래퍼 클래스를 이용하여 랜덤으로 결정된 어느 챕터의 일반, 엘리트, 또는 보스의 어느 몬스터가 나올지를 결정하게 할 수 있다.
     public int enemyWho { get; private set; }
-    private int _currentHp;
+    public int _currentHp { get; private set; }
 
     [SerializeField] private Slider hpSlider; // UI 슬라이더 연결
     private Image _enemyImage;
+
+    public EnemyAction nextAction;
+    //public EnemyUI ui; // 머리 위 아이콘과 텍스트를 관리하는 컴포넌트
 
     private void Awake()
     {
@@ -67,7 +72,8 @@ public class Enemy : MonoBehaviour, IDropHandler
 
     void Die()
     {
-        Debug.Log("적이 처치되었습니다!");
+        BattleManager.Instance.CheckEnemyDeaths();
+        Debug.Log($"적이 처치되었습니다! 남은 적:{BattleManager.Instance.activeEnemies.Count}");
         // 여기서 애니메이션이나 파괴 로직 실행
     }
 
@@ -85,9 +91,31 @@ public class Enemy : MonoBehaviour, IDropHandler
             {
                 TakeDamage(card.cardData.value);
                 BattleManager.Instance.UseEnergy(card.cardData.energyCost);
-                DeckManager.Instance.DiscardCard(card.cardData);
+                DeckManager.Instance.DiscardCardDragged(card.cardData, eventData);
                 Destroy(draggedObject);
             }
         }
+    }
+
+    public void DecideNextAction()
+    {
+        // 예: 리스트에서 랜덤하게 하나 선택하거나 순차적으로 선택
+        nextAction = enemyData[enemyWho].actions[Random.Range(0, enemyData[enemyWho].actions.Count)];
+        //ui.UpdateIntent(nextAction);
+    }
+
+    public IEnumerator TakeAction()
+    {
+        // 의도에 따른 실제 로직 실행
+        /*
+        if (nextAction.type == IntentType.Attack)
+        {
+            Player.Instance.TakeDamage(nextAction.value);
+        }
+        */
+        // ... 애니메이션 대기 등
+        yield return new WaitForSeconds(1.0f);
+
+        DecideNextAction(); // 행동 후 다음 턴 의도 미리 결정
     }
 }
