@@ -18,8 +18,7 @@ public class Enemy : MonoBehaviour, IDropHandler
     private Image _enemyImage;
 
     public EnemyAction nextAction;
-    //public EnemyUI ui; // 머리 위 아이콘과 텍스트를 관리하는 컴포넌트
-
+    [SerializeField] private EnemyUI enemyUI; // 인스펙터에서 연결하거나 GetComponentInChildren
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -101,18 +100,21 @@ public class Enemy : MonoBehaviour, IDropHandler
     {
         // 예: 리스트에서 랜덤하게 하나 선택하거나 순차적으로 선택
         nextAction = enemyData[enemyWho].actions[Random.Range(0, enemyData[enemyWho].actions.Count)];
-        //ui.UpdateIntent(nextAction);
+        if (nextAction.type == EnemyData.IntentType.Attack)
+        {
+            enemyUI.UpdateIntentUI(nextAction.intentIcon, nextAction.value);
+        }
     }
 
     public IEnumerator TakeAction()
     {
         // 의도에 따른 실제 로직 실행
-        /*
+        
         if (nextAction.type == IntentType.Attack)
         {
-            Player.Instance.TakeDamage(nextAction.value);
+            PlayerController.Instance.TakeDamage(nextAction.value);
         }
-        */
+        
         // ... 애니메이션 대기 등
         yield return new WaitForSeconds(1.0f);
 

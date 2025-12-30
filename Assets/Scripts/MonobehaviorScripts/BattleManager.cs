@@ -34,7 +34,9 @@ public class BattleManager : MonoBehaviour
 
     private void Start()
     {
+        PlayerController.Instance.Initialize();
         SpawnEnemy();
+        Enemy.Instance.DecideNextAction();
         ResetEnergy();
         currentState = BattleState.PlayerTurn;
     }
@@ -102,7 +104,7 @@ public class BattleManager : MonoBehaviour
         if (activeEnemies.Count == 0)
         {
             Debug.Log("전투 승리!");
-            // BattleManager의 상태를 Win으로 변경하는 로직 추가
+            currentState = BattleState.Win;
         }
     }
     //---------------------------------------------------------------------------
