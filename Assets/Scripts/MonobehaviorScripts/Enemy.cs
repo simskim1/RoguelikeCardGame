@@ -78,6 +78,15 @@ public class Enemy : MonoBehaviour, IDropHandler
 
     public void OnDrop(PointerEventData eventData)//드롭시, 즉 마우스를 땠을때 그 마우스를 땐곳 밑에있는 오브젝트들의 OnDrop을 실행한다
     {
+        CardDisplay card1 = eventData.pointerDrag.GetComponent<CardDisplay>();
+        if (card1 != null)
+        {
+            // 카드가 가지고 있는 화살표를 직접 끔
+            if (card1.arrow != null) card1.arrow.gameObject.SetActive(false);
+
+            
+        }
+
         GameObject draggedObject = eventData.pointerDrag;//내 위에서 감지된 놈 확인
 
         // 드래그한 오브젝트에서 카드 정보 가져오기

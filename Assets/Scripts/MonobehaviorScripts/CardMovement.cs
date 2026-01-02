@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class CardMovement : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class CardMovement : MonoBehaviour, IBeginDragHandler, IEndDragHandler//, IDragHandler
 {
     private Vector3 returnParentPos; // 드래그 취소 시 돌아갈 위치
     private CanvasGroup canvasGroup;
@@ -18,11 +18,11 @@ public class CardMovement : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
         canvasGroup.blocksRaycasts = false;
     }
 
-    public void OnDrag(PointerEventData eventData)
+    /*public void OnDrag(PointerEventData eventData)
     {
         // 마우스 위치를 따라 카드 이동
         this.transform.position = eventData.position;
-    }
+    }*/
 
     public void OnEndDrag(PointerEventData eventData)
     {
