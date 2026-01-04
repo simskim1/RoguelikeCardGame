@@ -32,6 +32,7 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     private Vector3 dragStartPosition;
     private Vector3 dragStartWorldPos;
     private Vector3 dragStartPos; // 카드 시작 위치 (로컬)
+    private Vector2 pointerOffset; // 마우스 클릭 지점과 카드 중심의 차이
 
     private void Awake()
     {
@@ -50,11 +51,9 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             // 기본 sortingOrder를 0으로 고정합니다.
             cardCanvas.sortingOrder = 0;
         }
+        arrow = TargetingArrow.Instance;
     }
-    private void Start()
-    {
-        arrow = FindFirstObjectByType<TargetingArrow>();
-    }
+    
     public void Setup(CardData data)
     {
         cardData = data;
@@ -106,61 +105,70 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         transform.DOScale(originalScale, animationDuration).SetEase(Ease.InQuad);
     }
 
-    /*public void OnBeginDrag(PointerEventData eventData)
-    {
-        // 카드의 부모(Canvas 등) 내에서의 로컬 좌표를 저장
-        dragStartPos = transform.localPosition;
-
-        if (arrow != null)
-        {
-            arrow.lineRenderer.enabled = true;
-            arrow.gameObject.SetActive(true);
-        }
-    }*/
-
     public void OnBeginDrag(PointerEventData eventData)
     {
-        // 1. 카드의 현재 '월드' 위치를 기준으로 캔버스 내 로컬 좌표를 새로 계산
         RectTransform canvasRect = arrow.GetComponentInParent<Canvas>().transform as RectTransform;
+        RectTransform parentRect = transform.parent as RectTransform; // Hand 패널
         Camera uiCamera = eventData.pressEventCamera;
 
-        // 카드의 현재 위치(transform.position)를 캔버스 로컬 좌표로 정확히 변환
+        Vector2 tempPos;
+        // --- 1. 화살표 시작점 계산 (Canvas 기준) ---
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             canvasRect,
-            // 카드가 렌더링되는 카메라를 통해 스크린 좌표를 먼저 구함
             RectTransformUtility.WorldToScreenPoint(uiCamera, transform.position),
             uiCamera,
-            out Vector2 correctedStartPos
+            out tempPos
         );
 
-        dragStartPos = correctedStartPos; // 보정된 시작점 저장
+        dragStartPos = tempPos;
+        // --- 2. 카드 드래그 오프셋 계산 (Hand 기준) ---
+        // 마우스 위치를 카드의 부모인 'Hand' 기준 좌표로 변환
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            parentRect,
+            eventData.position,
+            uiCamera,
+            out Vector2 mouseInParentPos))
+        {
+            // 현재 카드의 localPosition과 마우스 위치의 차이를 저장 (튀는 현상 방지)
+            pointerOffset = (Vector2)transform.localPosition - mouseInParentPos;
+        }
 
         if (arrow != null)
         {
             arrow.lineRenderer.enabled = true;
             arrow.gameObject.SetActive(true);
         }
+
+        cardCanvas.sortingOrder = 100;
     }
+
     public void OnDrag(PointerEventData eventData)
     {
-        // 1. 카드 이동 (마우스 위치를 UI 로컬 좌표로 변환)
+        cardCanvas.sortingOrder = 100;
         RectTransform canvasRect = arrow.GetComponentInParent<Canvas>().transform as RectTransform;
+        RectTransform parentRect = transform.parent as RectTransform; // Hand 패널
+        Camera uiCamera = eventData.pressEventCamera;
 
+        // --- 1. 카드 이동 (Hand 기준 좌표 사용) ---
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            parentRect,
+            eventData.position,
+            uiCamera,
+            out Vector2 mouseInParentPos))
+        {
+            transform.localPosition = mouseInParentPos + pointerOffset;
+        }
+
+        // --- 2. 화살표 그리기 (Canvas 기준 좌표 사용) ---
         if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
             canvasRect,
             eventData.position,
-            eventData.pressEventCamera,
-            out Vector2 localMousePos))
+            uiCamera,
+            out Vector2 mouseInCanvasPos))
         {
-            // 카드는 마우스 위치로 (필요 시)
-            // transform.localPosition = localMousePos; 
-
-            // 2. 화살표 그리기 (시작점: 저장해둔 위치, 끝점: 현재 마우스 위치)
-            // 두 좌표 모두 동일한 canvasRect 기준이므로 오차가 발생할 수 없음
-            arrow.DrawCurve(dragStartPos, localMousePos);
+            arrow.DrawCurve(dragStartPos, mouseInCanvasPos);
         }
     }
-
     public void OnEndDrag(PointerEventData eventData)//포물선의 캐릭터 위에 떨어졌을 때의 삭제는 여기가 아닌 Enemy와 Player의 onDrop에서 구현중임.
     {
         if (arrow != null)
@@ -168,5 +176,6 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             arrow.gameObject.SetActive(false);
             arrow.lineRenderer.enabled = false;
         }
+        cardCanvas.sortingOrder = 0;
     }
 }

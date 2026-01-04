@@ -289,6 +289,7 @@ MonoBehaviour:
   hoverScale: 1.1
   animationDuration: 0.2
   cardData: {fileID: 0}
+  arrow: {fileID: 0}
 --- !u!114 &1589095358425537916
 MonoBehaviour:
   m_ObjectHideFlags: 0

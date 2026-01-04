@@ -1,39 +1,20 @@
+using System.Net;
 using UnityEngine;
 
 public class TargetingArrow : MonoBehaviour
 {
+    public static TargetingArrow Instance;
+
     public LineRenderer lineRenderer;
     public int pointsCount = 30;
     public float curveHeightFactor = 0.25f; // 너무 높으면 포물선이 과해지니 0.2~0.3 권장
+    public RectTransform arrowHead; // 화살촉 이미지의 RectTransform
 
-    /*public void DrawCurve(Vector3 start, Vector3 end)
+    void Awake()
     {
-        if (lineRenderer == null) return;
+        Instance = this; // 내가 태어나자마자 내 주소를 공개함
+    }
 
-        // 반드시 월드 스페이스 해제 (Canvas 내 로컬 좌표 사용)
-        lineRenderer.useWorldSpace = false;
-
-        Vector3[] points = new Vector3[pointsCount];
-
-        // 1. 방향 및 수직 벡터 계산 (진행 방향의 '옆'으로 휘게 함)
-        Vector2 direction = end - start;
-        Vector2 perpendicular = new Vector2(-direction.y, direction.x).normalized;
-        float distance = direction.magnitude;
-
-        // 2. 제어점(Control Point) 설정: 시작과 끝의 중간에서 수직 방향으로 높이 부여
-        // distance에 비례하게 높이를 설정하여 너무 멀리 날아가지 않게 함
-        Vector3 controlPoint = (start + end) / 2f + (Vector3)(perpendicular * distance * curveHeightFactor);
-
-        for (int i = 0; i < pointsCount; i++)
-        {
-            float t = i / (float)(pointsCount - 1);
-            points[i] = CalculateBezierPoint(t, start, controlPoint, end);
-            points[i].z = -1f; // 카드(Z=0)보다 약간 앞으로 나오게 설정
-        }
-
-        lineRenderer.positionCount = pointsCount;
-        lineRenderer.SetPositions(points);
-    }*/
     public void DrawCurve(Vector3 start, Vector3 end)
     {
         if (lineRenderer == null) return;
@@ -66,6 +47,20 @@ public class TargetingArrow : MonoBehaviour
 
         lineRenderer.positionCount = pointsCount;
         lineRenderer.SetPositions(points);
+        
+        // 2. 화살촉 위치 설정
+        arrowHead.localPosition = end;
+
+        // 3. 화살촉 회전 설정 (핵심)
+        // 끝점(P2)에서 조절점(P1)을 뺀 방향이 화살촉이 바라볼 방향입니다.
+        Vector2 pointDirection = end - controlPoint;
+
+        // Atan2를 사용하여 각도를 구합니다 (라디안 -> 도 변환)
+        float angle = Mathf.Atan2(pointDirection.y, pointDirection.x) * Mathf.Rad2Deg;
+
+        // 화살촉 이미지(삼각형)의 기본 방향이 위쪽(Up)을 향하고 있다면 -90도를 해줍니다.
+        // 만약 이미지 자체가 오른쪽을 향하고 있다면 그냥 angle을 사용하세요.
+        arrowHead.localRotation = Quaternion.Euler(0, 0, angle - 90f);
     }
 
     private Vector3 CalculateBezierPoint(float t, Vector3 p0, Vector3 p1, Vector3 p2)
