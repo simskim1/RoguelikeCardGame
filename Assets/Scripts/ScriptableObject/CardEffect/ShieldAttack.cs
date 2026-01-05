@@ -11,10 +11,11 @@ public class ShieldAttack : CardEffect
         // MonoBehaviour가 아니므로 GetComponent를 쓸 때 'player'를 참조해야 합니다.
         // 예: PlayerStatus라는 스크립트에 방어도가 있다면
         var status = player.GetComponent<PlayerController>();
+        Enemy targetEnemy = enemy.GetComponent<Enemy>();
         if (status != null)
         {
             int damage = Mathf.RoundToInt(status.currentBlock * multiplier);
-            Enemy.Instance.TakeDamage(damage);
+            targetEnemy.TakeDamage(damage);
             Debug.Log($"방어도 {status.currentBlock}만큼 공격!");
         }
     }
