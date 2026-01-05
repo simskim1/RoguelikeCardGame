@@ -1,4 +1,5 @@
 // CardData.cs
+using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewCard", menuName = "ScriptableObjects/CardData", order = 1)]
@@ -15,6 +16,7 @@ public class CardData : ScriptableObject
     public CardType cardType;
     public CardRarity rarity;
     public TargetType targetType;
+    public CardEffect[] cardEffect;
 
     [Header("효과 수치")]
     public int value;

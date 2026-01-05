@@ -1,4 +1,3 @@
 repository "RoguelikeCandgameProject/RoguelikeCandgameProject@14569100351589@cloud"
   path "/"
-    br "/main"
-    co "/main"
+    smartbranch "/main" changeset "14"      

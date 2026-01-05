@@ -1218,8 +1218,8 @@ MonoBehaviour:
   allCards:
   - {fileID: 11400000, guid: b07e60bab129c2f41a341cee64639729, type: 2}
   - {fileID: 11400000, guid: b07e60bab129c2f41a341cee64639729, type: 2}
-  - {fileID: 11400000, guid: b07e60bab129c2f41a341cee64639729, type: 2}
-  - {fileID: 11400000, guid: b07e60bab129c2f41a341cee64639729, type: 2}
+  - {fileID: 11400000, guid: caac8e9194655954481ceb36624eb8d7, type: 2}
+  - {fileID: 11400000, guid: caac8e9194655954481ceb36624eb8d7, type: 2}
   - {fileID: 11400000, guid: 64d7cd3e4496b5c4f81586c47a09f74b, type: 2}
   - {fileID: 11400000, guid: 407d6aca3b14d4e4e82ea3cd84b2f007, type: 2}
   - {fileID: 11400000, guid: 407d6aca3b14d4e4e82ea3cd84b2f007, type: 2}
