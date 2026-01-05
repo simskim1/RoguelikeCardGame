@@ -36,7 +36,10 @@ public class BattleManager : MonoBehaviour
     {
         PlayerController.Instance.Initialize();
         SpawnEnemy();
-        Enemy.Instance.DecideNextAction();
+        foreach (var enemy in activeEnemies)
+        {
+            enemy.DecideNextAction();
+        }
         ResetEnergy();
         currentState = BattleState.PlayerTurn;
     }
@@ -87,7 +90,7 @@ public class BattleManager : MonoBehaviour
         activeEnemies.Add(_currentEnemy);
 
         // 3. (선택) 적 데이터 초기화 등 필요한 로직 수행
-        Debug.Log($"{_currentEnemy.enemyData[Enemy.Instance.enemyWho].enemyName} 등장!");
+        //Debug.Log($"{_currentEnemy.enemyData[Enemy.Instance.enemyWho].enemyName} 등장!");
     }
     public void CheckEnemyDeaths()
     {
@@ -151,11 +154,15 @@ public class BattleManager : MonoBehaviour
 
         // 에너지 리프레시
         ResetEnergy();
-
+        //플레이어 턴시작시
+        PlayerController.Instance.OnTurnStart();
         // 카드 드로우
         DeckManager.Instance.DrawCard(5);
 
         // 다음 적 의도 결정
-        Enemy.Instance.DecideNextAction();
+        foreach (var enemy in activeEnemies)
+        {
+            enemy.DecideNextAction();
+        }
     }
 }

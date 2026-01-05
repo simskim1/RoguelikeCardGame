@@ -16,6 +16,7 @@ public class CardData : ScriptableObject
     public CardType cardType;
     public CardRarity rarity;
     public TargetType targetType;
+    public bool hasCardEffect;
     public CardEffect[] cardEffect;
 
     [Header("효과 수치")]

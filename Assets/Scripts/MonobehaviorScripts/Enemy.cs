@@ -95,13 +95,16 @@ public class Enemy : MonoBehaviour, IDropHandler
         if (card != null)
         {
             // 공격 카드일 때만 데미지 주기
-            if(card.cardData.cardEffect != null)
+            if(card.cardData.hasCardEffect ==true)
             {
                 foreach (CardEffect effect in card.cardData.cardEffect)
                 {
                     // 부모 틀에 정의된 Execute를 호출하면, 
                     // 실제 데이터(DamageEffect 등)에 따라 다르게 작동합니다. (다형성)
                     effect.Execute(PlayerController.Instance.gameObject, this.gameObject);
+                    BattleManager.Instance.UseEnergy(card.cardData.energyCost);
+                    DeckManager.Instance.DiscardCardDragged(card.cardData, eventData);
+                    Destroy(draggedObject);
                 }
             }
             else if (card.cardData.cardType == CardType.Attack && BattleManager.Instance.CanUseCard(card.cardData.energyCost))
