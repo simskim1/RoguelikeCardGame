@@ -19,12 +19,17 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private UnityEngine.UI.Slider hpSlider;
     private UnityEngine.UI.Image _playerImage;
+
+    private StatusController status;
+
     private void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject); // 중복 방지
         OnHealthChanged += playerUI.UpdateHealthUI;
         OnBlockChanged += playerUI.UpdateBlockUI;
+        status = GetComponent<StatusController>();
+        BattleManager.Instance.RegisterEntity(status);
     }
 
     public void Initialize()

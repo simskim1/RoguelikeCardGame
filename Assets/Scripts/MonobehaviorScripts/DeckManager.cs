@@ -107,6 +107,7 @@ public class DeckManager : MonoBehaviour
         int index = hand.IndexOf(card);
         discardPile.Add(card);
         hand.RemoveAt(index);
+        //묘지 존재하는 카드 전부 올림
         for (int i = 0; i < discardPile.Count; i++) {
             Debug.Log($"{discardPile[i].cardName}가 묘지로 갔습니다");
         }

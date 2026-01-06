@@ -123,6 +123,7 @@ GameObject:
   - component: {fileID: 9074183981470806032}
   - component: {fileID: 6389381997961234325}
   - component: {fileID: 3525349283927090051}
+  - component: {fileID: 7508386913130163201}
   m_Layer: 5
   m_Name: Ememy_Prefab
   m_TagString: Untagged
@@ -210,6 +211,19 @@ MonoBehaviour:
     value: 5
     intentIcon: {fileID: -4191499517511077811, guid: d4a9f6d0c664f7c439bd48daeb8fc74a, type: 3}
   enemyUI: {fileID: 2873365155008844826}
+--- !u!114 &7508386913130163201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5212445819959395560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11f1d985dcb97e44a91fbf5ade2ea5f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StatusController
+  activeStatuses: []
 --- !u!1 &6373567156622668414
 GameObject:
   m_ObjectHideFlags: 0

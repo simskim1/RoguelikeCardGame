@@ -26,6 +26,8 @@ public class BattleManager : MonoBehaviour
 
     public BattleState currentState;//현재 턴의 상태를 저장
 
+    private List<StatusController> _allControllers = new List<StatusController>();
+    public void RegisterEntity(StatusController controller) => _allControllers.Add(controller);
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -149,6 +151,12 @@ public class BattleManager : MonoBehaviour
     }
     void StartPlayerTurn()
     {
+        for (int i = _allControllers.Count-1; i >= 0; i--)
+        {
+            _allControllers[i].TickTurn();
+        }
+        Debug.Log(_allControllers[0].activeStatuses.Count);
+        Debug.Log(_allControllers[1].activeStatuses.Count);
         Debug.Log("아군의 턴!");
         currentState = BattleState.PlayerTurn;
 

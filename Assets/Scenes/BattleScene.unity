@@ -2118,6 +2118,7 @@ GameObject:
   - component: {fileID: 2121594169}
   - component: {fileID: 2121594168}
   - component: {fileID: 2121594167}
+  - component: {fileID: 2121594170}
   m_Layer: 5
   m_Name: Player
   m_TagString: Untagged
@@ -2200,6 +2201,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2121594165}
   m_CullTransparentMesh: 1
+--- !u!114 &2121594170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2121594165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11f1d985dcb97e44a91fbf5ade2ea5f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StatusController
+  activeStatuses: []
 --- !u!1 &2139823879
 GameObject:
   m_ObjectHideFlags: 0

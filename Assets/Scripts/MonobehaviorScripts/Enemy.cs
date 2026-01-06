@@ -19,6 +19,8 @@ public class Enemy : MonoBehaviour, IDropHandler
 
     public EnemyAction nextAction;
     [SerializeField] private EnemyUI enemyUI; // 인스펙터에서 연결하거나 GetComponentInChildren
+
+    public StatusController status;
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -43,11 +45,14 @@ public class Enemy : MonoBehaviour, IDropHandler
             _currentHp = enemyData[enemyWho].maxHp;//현재체력도 변경.
             UpdateHpUI();
         }
+        status = GetComponent<StatusController>();
+        BattleManager.Instance.RegisterEntity(status);
     }
 
     public void TakeDamage(int amount)
     {
-        _currentHp -= amount;
+        int finalDamage =  status.DamageCheck(amount);
+        _currentHp -= finalDamage;
         _currentHp = Mathf.Clamp(_currentHp, 0, enemyData[enemyWho].maxHp); // 체력 하한/상한 고정
 
         Debug.Log($"{enemyData[enemyWho].enemyName}이(가) {amount}의 데미지를 입음! 남은 체력: {_currentHp}");
@@ -102,10 +107,10 @@ public class Enemy : MonoBehaviour, IDropHandler
                     // 부모 틀에 정의된 Execute를 호출하면, 
                     // 실제 데이터(DamageEffect 등)에 따라 다르게 작동합니다. (다형성)
                     effect.Execute(PlayerController.Instance.gameObject, this.gameObject);
-                    BattleManager.Instance.UseEnergy(card.cardData.energyCost);
-                    DeckManager.Instance.DiscardCardDragged(card.cardData, eventData);
-                    Destroy(draggedObject);
                 }
+                BattleManager.Instance.UseEnergy(card.cardData.energyCost);
+                DeckManager.Instance.DiscardCardDragged(card.cardData, eventData);
+                Destroy(draggedObject);
             }
             else if (card.cardData.cardType == CardType.Attack && BattleManager.Instance.CanUseCard(card.cardData.energyCost))
             {

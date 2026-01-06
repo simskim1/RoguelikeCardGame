@@ -5,6 +5,7 @@ using UnityEngine;
 public class ShieldAttack : CardEffect
 {
     public float multiplier = 1.0f;
+    public StatusEffect vulnerableEffect;
 
     public override void Execute(GameObject player, GameObject enemy)
     {
@@ -16,6 +17,10 @@ public class ShieldAttack : CardEffect
         {
             int damage = Mathf.RoundToInt(status.currentBlock * multiplier);
             targetEnemy.TakeDamage(damage);
+            if (vulnerableEffect != null)
+            {
+                targetEnemy.status.AddStatus(vulnerableEffect, 1, 1);
+            }
             Debug.Log($"방어도 {status.currentBlock}만큼 공격!");
         }
     }
