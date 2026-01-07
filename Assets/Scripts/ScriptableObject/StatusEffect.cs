@@ -5,6 +5,8 @@ using UnityEngine;
 public abstract class StatusEffect : ScriptableObject
 {
     public string effectName;
+    public string effectDescription;
+
     public Sprite icon;
     public bool isDebuff;
 

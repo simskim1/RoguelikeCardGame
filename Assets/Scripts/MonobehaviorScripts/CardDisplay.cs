@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler,
-                           IBeginDragHandler, IDragHandler, IEndDragHandler
+                           IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerDownHandler
 {
     [Header("UI References")]
     public TextMeshProUGUI cardNameText;
@@ -177,5 +177,15 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             arrow.lineRenderer.enabled = false;
         }
         cardCanvas.sortingOrder = 0;
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        Debug.Log("우클릭 감지됨 (OnPointerDown)");
+        if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            Debug.Log("우클릭 감지됨 (OnPointerDown)");
+            CardFocusManager.Instance.ShowFocusView(cardData);
+        }
     }
 }

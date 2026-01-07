@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 // MonoBehaviour 대신 아까 만든 CardEffect(ScriptableObject)를 상속받습니다.
@@ -5,7 +6,6 @@ using UnityEngine;
 public class ShieldAttack : CardEffect
 {
     public float multiplier = 1.0f;
-    public StatusEffect vulnerableEffect;
 
     public override void Execute(GameObject player, GameObject enemy)
     {
@@ -17,9 +17,10 @@ public class ShieldAttack : CardEffect
         {
             int damage = Mathf.RoundToInt(status.currentBlock * multiplier);
             targetEnemy.TakeDamage(damage);
-            if (vulnerableEffect != null)
+            if (statusEffect != null)
             {
-                targetEnemy.status.AddStatus(vulnerableEffect, 1, 1);
+                for(int i = 0; i < statusEffect.Length; i++)
+                    targetEnemy.status.AddStatus(statusEffect[i], 1, 1);
             }
             Debug.Log($"방어도 {status.currentBlock}만큼 공격!");
         }
