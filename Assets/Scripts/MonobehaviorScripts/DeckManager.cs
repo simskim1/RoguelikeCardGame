@@ -9,7 +9,7 @@ public class DeckManager : MonoBehaviour
     public static DeckManager Instance; // 접근 편의를 위한 싱글톤
 
     [Header("카드 데이터 설정")]
-    public List<CardData> allCards; 
+    public List<CardData> masterDeck = new List<CardData>(); 
 
     [Header("UI 연결")]
     public GameObject cardPrefab;  
@@ -45,7 +45,7 @@ public class DeckManager : MonoBehaviour
 
     void SetupDeck()
     {
-        drawPile.AddRange(allCards);
+        drawPile.AddRange(masterDeck);
         Shuffle(drawPile);
     }
 
@@ -103,13 +103,29 @@ public class DeckManager : MonoBehaviour
     //끌어서 사용한 카드를 DiscardPlle에 보내기(destroy는 이 함수를 사용하는 쪽이 받은 오브젝트에 destroy넣어주기)
     public void DiscardCardDragged(CardData card, PointerEventData eventData)
     {
-        int count = hand.Count;
+        /*int count = hand.Count;
         int index = hand.IndexOf(card);
         discardPile.Add(card);
         hand.RemoveAt(index);
         //묘지 존재하는 카드 전부 올림
         for (int i = 0; i < discardPile.Count; i++) {
             Debug.Log($"{discardPile[i].cardName}가 묘지로 갔습니다");
+        }*/
+        // 1. 객체 자체를 리스트에서 지우기 (더 안전함)
+        if (hand.Contains(card))
+        {
+            hand.Remove(card);
+            discardPile.Add(card);
+
+            // 묘지 존재하는 카드 전부 출력 (디버깅용)
+            foreach (var discard in discardPile)
+            {
+                Debug.Log($"{discard.cardName}가 묘지로 갔습니다");
+            }
+        }
+        else
+        {
+            Debug.LogWarning($"지우려는 카드 {card.cardName}가 패(hand)에 없습니다!");
         }
     }
 
@@ -126,5 +142,20 @@ public class DeckManager : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+        
+    }
+
+    public void DeckReset()
+    {
+        drawPile.AddRange(hand);
+        drawPile.AddRange(discardPile);
+        hand.Clear();
+        discardPile.Clear();
+    }
+    //덱에 카드를 추가
+    public void AddCardToMasterDeck(CardData data)
+    {
+        masterDeck.Add(data);
+        Debug.Log($"{data.cardName}이(가) 영구적으로 덱에 추가되었습니다! 현재 덱 수: {masterDeck.Count}");
     }
 }

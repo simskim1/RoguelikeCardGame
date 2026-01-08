@@ -21,6 +21,8 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private GameObject enemyPrefab; // 소환할 적 프리팹 영역. 이영역을 추가, 분할해서 챕터구분으로 사용도 가능
     [SerializeField] private RectTransform enemySpawnPoint; // 적이 배치될 위치(Canvas 내부)
 
+    [SerializeField] private RewardUI rewardUI; // RewardCanvas와 연결된 스크립트
+
     private Enemy _currentEnemy; // 현재 소환된 적 참조 저장
     public List<Enemy> activeEnemies = new List<Enemy>();
 
@@ -108,10 +110,20 @@ public class BattleManager : MonoBehaviour
         //모든 적이 죽었는지 체크
         if (activeEnemies.Count == 0)
         {
-            Debug.Log("전투 승리!");
             currentState = BattleState.Win;
+            WinBattle();
         }
     }
+
+    public void WinBattle()
+    {
+        activeEnemies.Clear(); // 중복 실행 방지
+        Debug.Log("전투 승리!");
+        DeckManager.Instance.DeckReset();
+        // 보상 시스템 호출
+        rewardUI.ShowRewardPanel();
+    }
+
     //---------------------------------------------------------------------------
     //턴 관리---------------------------------------------------------------------
     // 턴 종료 버튼에 연결할 함수
