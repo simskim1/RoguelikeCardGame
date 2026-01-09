@@ -16,9 +16,9 @@ public class DeckManager : MonoBehaviour
     public Transform handParent;   // 카드가 배치될 부모 오브젝트
 
     // 실시간 카드 더미들
-    private List<CardData> drawPile = new List<CardData>();
+    public List<CardData> drawPile = new List<CardData>();
     private List<CardData> hand = new List<CardData>();
-    private List<CardData> discardPile = new List<CardData>();
+    public List<CardData> discardPile = new List<CardData>();
 
     public int firstDrawCard = 5;
 
