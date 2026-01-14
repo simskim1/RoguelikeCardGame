@@ -5,6 +5,16 @@ public class MapManager : MonoBehaviour
     public MapData mapData;
     public MapGenerator generator;
 
+    public static MapManager Instance; // 접근 편의를 위한 싱글톤
+
+    public MapNode SelectedNode;
+
+    private void Awake()
+    {
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject); // 중복 방지
+    }
+
     void Start()
     {
         if (mapData.nodes.Count == 0)
@@ -18,6 +28,11 @@ public class MapManager : MonoBehaviour
             LoadExistingMap();
         }
         MapDisplayer.Instance.DisplayMap();
+    }
+
+    public void SetCurrentNode(MapNode node)
+    {
+        SelectedNode = node;
     }
 
     void LoadExistingMap()

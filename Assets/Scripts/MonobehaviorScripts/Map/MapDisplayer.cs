@@ -60,6 +60,14 @@ public class MapDisplayer : MonoBehaviour
         foreach (var node in mapData.nodes)
         {
             GameObject nodeObj = Instantiate(nodePrefab, content);
+
+            NodeMapUI nodeUI = nodeObj.GetComponent<NodeMapUI>();
+            if (nodeUI != null)
+            {
+                // 현재 루프에서 다루는 'node' 데이터를 넘겨줍니다.
+                nodeUI.Setup(node);
+            }
+
             RectTransform rect = nodeObj.GetComponent<RectTransform>();
 
             // X축: 층별 중앙 정렬
