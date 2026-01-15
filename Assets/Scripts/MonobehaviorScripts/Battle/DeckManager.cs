@@ -9,6 +9,7 @@ public class DeckManager : MonoBehaviour
     public static DeckManager Instance; // 접근 편의를 위한 싱글톤
 
     [Header("카드 데이터 설정")]
+    public DeckData deck;
     public List<CardData> masterDeck = new List<CardData>(); 
 
     [Header("UI 연결")]
@@ -45,6 +46,7 @@ public class DeckManager : MonoBehaviour
 
     void SetupDeck()
     {
+        masterDeck = deck.masterDeck;
         drawPile.AddRange(masterDeck);
         Shuffle(drawPile);
     }
@@ -157,5 +159,6 @@ public class DeckManager : MonoBehaviour
     {
         masterDeck.Add(data);
         Debug.Log($"{data.cardName}이(가) 영구적으로 덱에 추가되었습니다! 현재 덱 수: {masterDeck.Count}");
+        deck.masterDeck = masterDeck;
     }
 }

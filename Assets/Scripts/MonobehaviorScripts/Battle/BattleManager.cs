@@ -16,6 +16,7 @@ public class BattleManager : MonoBehaviour
     [Header("UI References")]
     public TextMeshProUGUI energyText;
     public Image energyIcon;          // 캐릭터에 따른 아이콘 변경을 나중에 구현하기 위해
+    public GameObject winButton;
 
     [Header("Enemy Spawning")]
     [SerializeField] private GameObject enemyPrefab; // 소환할 적 프리팹 영역. 이영역을 추가, 분할해서 챕터구분으로 사용도 가능
@@ -38,6 +39,7 @@ public class BattleManager : MonoBehaviour
 
     private void Start()
     {
+        winButton.SetActive(false);
         PlayerController.Instance.Initialize();
         SpawnEnemy();
         foreach (var enemy in activeEnemies)
@@ -122,8 +124,16 @@ public class BattleManager : MonoBehaviour
         DeckManager.Instance.DeckReset();
         // 보상 시스템 호출
         rewardUI.ShowRewardPanel();
+        Button win = winButton.GetComponent<Button>();
+        winButton.SetActive(true);
+        // 버튼 클릭 리스너 등록
+        win.onClick.AddListener(WinClick);
     }
 
+    public void WinClick()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MapScene");
+    }
     //---------------------------------------------------------------------------
     //턴 관리---------------------------------------------------------------------
     // 턴 종료 버튼에 연결할 함수

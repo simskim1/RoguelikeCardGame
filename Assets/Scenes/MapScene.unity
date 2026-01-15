@@ -767,6 +767,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MapManager
   mapData: {fileID: 11400000, guid: 906c0b6b2ba2c424f863c4e497de9aea, type: 2}
   generator: {fileID: 1240687937}
+  SelectedNode:
+    blueprintPos: {x: 0, y: 0}
+    nodeType: 0
+    nextNodes: []
+    isVisited: 0
+  PlayerNode:
+    blueprintPos: {x: 0, y: 0}
+    nodeType: 0
+    nextNodes: []
+    isVisited: 0
+  playerData: {fileID: 11400000, guid: e1ad432dacdb3034f9e4620355b0586e, type: 2}
 --- !u!114 &2109197659
 MonoBehaviour:
   m_ObjectHideFlags: 0
