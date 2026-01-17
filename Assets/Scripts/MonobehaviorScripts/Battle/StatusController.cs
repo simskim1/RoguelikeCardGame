@@ -6,6 +6,8 @@ public class StatusController : MonoBehaviour
     private float finalDamage;
     public List<StatusInstance> activeStatuses = new List<StatusInstance>();
 
+    public System.Action OnStatusChanged; // 상태 변화를 알리는 이벤트
+
     //카드로 스테이터스를 붙일 때는 CardEffect를, 적이 스테이터스를 붙일때는 의도들에 효과를 다는 형태로 이용
     public void AddStatus(StatusEffect effect, int amt, int dur)
     {
@@ -23,6 +25,7 @@ public class StatusController : MonoBehaviour
             effect.OnApply(gameObject, amt);
             Debug.Log($"상태 부여! 현재 {gameObject.name}의 상태 이상 개수: {activeStatuses.Count}");
         }
+        OnStatusChanged?.Invoke(); // 변화가 생겼음을 알림
     }
 
     public void TickTurn()
@@ -40,6 +43,7 @@ public class StatusController : MonoBehaviour
                 activeStatuses.RemoveAt(i);
             }
         }
+        OnStatusChanged?.Invoke();
     }
 
     //적이 데미지를 받을 때는 자기 자신의 버프/ 디버프와 플레이어의 버프 디버프 체크, 반대도 마친가지 이므로 각각 Enemy.TakeDamage와 Enemy.TakeAction에서 수행

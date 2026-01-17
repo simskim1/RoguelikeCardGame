@@ -100,7 +100,7 @@ public class Enemy : MonoBehaviour, IDropHandler
         if (card != null)
         {
             // 공격 카드일 때만 데미지 주기
-            if(card.cardData.hasCardEffect ==true)
+            if(card.cardData.hasCardEffect ==true && card.cardData.cardType == CardType.Attack && BattleManager.Instance.CanUseCard(card.cardData.energyCost))
             {
                 foreach (CardEffect effect in card.cardData.cardEffect)
                 {
