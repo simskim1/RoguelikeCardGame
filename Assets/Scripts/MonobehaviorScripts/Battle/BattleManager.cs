@@ -48,6 +48,7 @@ public class BattleManager : MonoBehaviour
         }
         ResetEnergy();
         currentState = BattleState.PlayerTurn;
+        RelicManager.Instance.NotifyTurnStart();
     }
     //에너지관리-----------------------------------------------------------------------
     // 에너지를 최대치로 초기화 (턴 시작 시 호출 예정)
@@ -194,5 +195,7 @@ public class BattleManager : MonoBehaviour
         {
             enemy.DecideNextAction();
         }
+        //턴 시작시 유물 실행
+        RelicManager.Instance.NotifyTurnStart();
     }
 }
