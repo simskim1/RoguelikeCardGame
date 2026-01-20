@@ -122,6 +122,7 @@ public class BattleManager : MonoBehaviour
     {
         activeEnemies.Clear(); // 중복 실행 방지
         Debug.Log("전투 승리!");
+        PlayerController.Instance.playerData.currentHP = PlayerController.Instance.currentHP;
         DeckManager.Instance.DeckReset();
         // 보상 시스템 호출
         rewardUI.ShowRewardPanel();
@@ -157,7 +158,7 @@ public class BattleManager : MonoBehaviour
         DeckManager.Instance.DiscardHand();
 
         yield return new WaitForSeconds(0.5f); // 연출을 위한 짧은 대기
-
+        
         // 3. 적의 행동 실행
         yield return StartCoroutine(EnemyTurnProcess());
     }
@@ -167,10 +168,15 @@ public class BattleManager : MonoBehaviour
         foreach (var enemy in activeEnemies)
         {
             yield return StartCoroutine(enemy.TakeAction());
+            yield return new WaitForSeconds(0.1f);
         }
 
-        // 4. 다시 플레이어 턴으로
-        StartPlayerTurn();
+        // 4. 패배가 아니면 다시 플레이어 턴으로
+        if (currentState != BattleState.Lose)
+        {
+            StartPlayerTurn();
+
+        }
     }
     void StartPlayerTurn()
     {

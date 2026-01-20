@@ -83,7 +83,7 @@ public class MapDisplayer : MonoBehaviour
             nodePositions.Add(node.blueprintPos, uiPos);
 
             var tmpText = nodeObj.GetComponentInChildren<TMPro.TMP_Text>();
-            if (tmpText != null) tmpText.text = node.nodeType.ToString();
+            if (tmpText != null) tmpText.text = node.nodeType.ToString();//노드의 텍스트
         }
 
         DrawConnections();

@@ -17,6 +17,7 @@ public class MapGenerator : MonoBehaviour
             for (int x = 0; x < nodesInFloor; x++)
             {
                 NodeType type = (y == 9) ? NodeType.Boss : NodeType.Battle;
+                type = (y == 4) ? NodeType.Rest : NodeType.Battle;
                 mapData.nodes.Add(new MapNode(x, y, type));
             }
         }

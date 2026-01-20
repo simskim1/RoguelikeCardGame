@@ -147,6 +147,7 @@ public class DeckManager : MonoBehaviour
         
     }
 
+    //끝날때 리셋
     public void DeckReset()
     {
         drawPile.AddRange(hand);

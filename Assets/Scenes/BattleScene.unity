@@ -5311,6 +5311,7 @@ MonoBehaviour:
   currentHP: 0
   currentBlock: 0
   hpSlider: {fileID: 2036420422}
+  mapData: {fileID: 11400000, guid: 906c0b6b2ba2c424f863c4e497de9aea, type: 2}
 --- !u!114 &2121594168
 MonoBehaviour:
   m_ObjectHideFlags: 0

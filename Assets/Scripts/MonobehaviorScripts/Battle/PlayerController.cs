@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
 
     private StatusController status;
 
+    public MapData mapData;
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -43,8 +44,15 @@ public class PlayerController : MonoBehaviour
                 _playerImage.sprite = playerData.characterSprite;//이 오브젝트의 컴포넌트인 ememyimage의 스프라이트를 enemyData에 저장된 이미지로 변경
             }
         }
-        currentHP = playerData.maxHP;
-        currentBlock = 0;
+        if (playerData.currentHP == 0 || (mapData.currentFloor == 0 && playerData.currentStage == 1))
+        {
+            currentHP = playerData.maxHP;
+        }
+        else
+        {
+            currentHP = playerData.currentHP;
+        }
+            currentBlock = 0;
         UpdateUI();
     }
 
@@ -100,8 +108,9 @@ public class PlayerController : MonoBehaviour
 
     private void Die()
     {
-        // BattleManager에게 이 적이 죽었음을 알림
-        // BattleManager.Instance.RemoveEnemy(this);
+        DeckManager.Instance.DeckReset();
+        mapData.nodes = null;
+        BattleManager.Instance.currentState = BattleState.Lose;
         Destroy(gameObject);
     }
 }

@@ -24,6 +24,8 @@ public class MapManager : MonoBehaviour
         {
             // 데이터가 없으면 새로 생성 (게임 시작 시)
             generator.GenerateMap();
+            playerData.playerNode = null;
+            mapData.currentFloor = -1;
         }
         else
         {
@@ -69,6 +71,10 @@ public class MapManager : MonoBehaviour
                         if (selectedNode.nodeType == NodeType.Battle)
                         {
                             UnityEngine.SceneManagement.SceneManager.LoadScene("BattleScene");
+                        }
+                        else if(selectedNode.nodeType == NodeType.Rest)
+                        {
+                            UnityEngine.SceneManagement.SceneManager.LoadScene("ShopScene");
                         }
                     }
                 }
