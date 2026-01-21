@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class CardListUI : MonoBehaviour
@@ -32,8 +33,19 @@ public class CardListUI : MonoBehaviour
         foreach (CardData data in cards)
         {
             GameObject cardObj = Instantiate(cardPrefab, contentArea);
+
+            Scene currentScene = SceneManager.GetActiveScene();
+
+            // 2. 씬의 이름을 문자열로 비교합니다.
+            if (currentScene.name == "BattleScene")
+            {
+                cardObj.GetComponent<CardDisplay>().Setup(data);
+            }
+            else if (currentScene.name == "ShopScene")
+            {
+                cardObj.GetComponent<CardDeleteDisplay>().Setup(data);
+            }
             // 카드 UI의 Setup 함수를 호출하여 데이터 전달 (이미지, 텍스트 등)
-            cardObj.GetComponent<CardDisplay>().Setup(data);
         }
     }
 

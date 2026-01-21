@@ -7,6 +7,7 @@ public class PlayerData : ScriptableObject
     public int currentHP;
     public int maxHP;
     public int baseEnergy; // 턴마다 회복되는 에너지
+    public int money;
     public Sprite characterSprite;
     public int currentStage;
 

@@ -13,7 +13,8 @@ public enum CardRarity
     Common,
     Uncommon,
     Rare,
-    Special
+    Special,
+    None
 }
 
 public enum TargetType
@@ -24,6 +25,13 @@ public enum TargetType
     None            
 }
 
+public enum Class
+{
+    Knight,
+    Wizard,
+    Archor,
+    Neutral
+}
 public enum BattleState
 {
     Start,      

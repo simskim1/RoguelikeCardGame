@@ -10,6 +10,8 @@ public class MapManager : MonoBehaviour
     public MapNode SelectedNode;
     public MapNode PlayerNode;
     public PlayerData playerData;
+    public DeckData playerDeck;
+    public DeckData basicDeck;
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -22,10 +24,12 @@ public class MapManager : MonoBehaviour
         mapData.currentFloor = PlayerNode.blueprintPos.y;
         if (mapData.nodes.Count == 0)
         {
-            // 데이터가 없으면 새로 생성 (게임 시작 시)
+            // 데이터가 없으면 새로 생성 (게임 시작 시), 초기 설정도 담당
             generator.GenerateMap();
             playerData.playerNode = null;
             mapData.currentFloor = -1;
+            playerData.money = 500;
+            ResetDeck();
         }
         else
         {
@@ -100,5 +104,11 @@ public class MapManager : MonoBehaviour
                 UnityEngine.SceneManagement.SceneManager.LoadScene("BattleScene");
             }*/
         }
+    }
+
+    private void ResetDeck()
+    {
+        playerDeck.masterDeck = null;
+        playerDeck.masterDeck = basicDeck.masterDeck;
     }
 }

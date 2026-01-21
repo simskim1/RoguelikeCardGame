@@ -778,6 +778,8 @@ MonoBehaviour:
     nextNodes: []
     isVisited: 0
   playerData: {fileID: 11400000, guid: e1ad432dacdb3034f9e4620355b0586e, type: 2}
+  playerDeck: {fileID: 11400000, guid: b7bd0c3172653e54ebfed9223658807f, type: 2}
+  basicDeck: {fileID: 11400000, guid: 943d1e7149efeae46aba5fa47fa833a6, type: 2}
 --- !u!114 &2109197659
 MonoBehaviour:
   m_ObjectHideFlags: 0
