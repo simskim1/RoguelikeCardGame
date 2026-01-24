@@ -1,3 +1,5 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewPlayerData", menuName = "ScriptableObjects/PlayerData")]
@@ -8,6 +10,7 @@ public class PlayerData : ScriptableObject
     public int maxHP;
     public int baseEnergy; // 턴마다 회복되는 에너지
     public int money;
+    public List<BaseRelic> currentRelic;
     public Sprite characterSprite;
     public int currentStage;
 

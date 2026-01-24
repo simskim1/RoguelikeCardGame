@@ -5,6 +5,7 @@ public class RelicBarUI : MonoBehaviour
 {
     [SerializeField] private GameObject iconPrefab; // 1-1에서 만든 프리팹
     [SerializeField] private RelicManager targetController;
+    [SerializeField] private PlayerData playerData;
 
     private List<RelicIconUI> spawnedIcons = new List<RelicIconUI>();
 
@@ -32,7 +33,7 @@ public class RelicBarUI : MonoBehaviour
         spawnedIcons.Clear();
 
         // 2. 현재 상태 이상 개수만큼 아이콘 생성
-        foreach (var status in targetController.ownedRelics)
+        foreach (var status in playerData.currentRelic)
         {
             GameObject go = Instantiate(iconPrefab, transform);
             RelicIconUI iconScript = go.GetComponent<RelicIconUI>();

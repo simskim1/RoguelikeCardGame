@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum RelicRarity { Normal, Rare, Boss }
 

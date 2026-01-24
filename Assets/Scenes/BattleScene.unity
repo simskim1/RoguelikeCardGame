@@ -818,8 +818,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 181eaaa076698ff4c80f1709c59bd409, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RelicManager
-  ownedRelics:
-  - {fileID: 11400000, guid: 4df035725f5b88e469ff834619f3adc2, type: 2}
+  playerData: {fileID: 11400000, guid: e1ad432dacdb3034f9e4620355b0586e, type: 2}
 --- !u!4 &179007125
 Transform:
   m_ObjectHideFlags: 0
@@ -2010,6 +2009,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RelicBarUI
   iconPrefab: {fileID: 654281398916619796, guid: d841c2021f0a7394bac5f5f3346160db, type: 3}
   targetController: {fileID: 179007124}
+  playerData: {fileID: 11400000, guid: e1ad432dacdb3034f9e4620355b0586e, type: 2}
 --- !u!114 &813633721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2042,7 +2042,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 0
-  m_Spacing: 7
+  m_Spacing: 45
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1

@@ -30,6 +30,7 @@ public class ShopManager : MonoBehaviour
     public Button cardDelete;
     public TextMeshProUGUI cardDeleteCost;
     public SellingCard sellingCard;
+    [SerializeField] private SellingRelic sellingRelic;
     public Transform sellingCardTransform;
 
     private int cardDeleteCount;
@@ -80,6 +81,7 @@ public class ShopManager : MonoBehaviour
     {
         ShopUI.SetActive(true);
         sellingCard.SellCard();
+        sellingRelic.SellRelic();
         cardDeleteCost.text = $"카드\n삭제하기\n{80 * (cardDeleteCount+1)}원";
     }
 

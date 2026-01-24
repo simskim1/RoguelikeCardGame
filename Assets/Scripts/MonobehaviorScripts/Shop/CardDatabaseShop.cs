@@ -5,10 +5,14 @@ public class CardDatabaseShop : MonoBehaviour
 {
     public static CardDatabaseShop Instance; // ¡¢±Ÿ ∆Ì¿«∏¶ ¿ß«— ΩÃ±€≈Ê
 
-    public List<CardData> common = new List<CardData>();
-    public List<CardData> uncommon = new List<CardData>();
-    public List<CardData> rare = new List<CardData>();
-    public List<CardData> special = new List<CardData>();
+    [SerializeField] private List<CardData> Common = new();
+    public IReadOnlyList<CardData> common => Common;
+    [SerializeField] private List<CardData> Uncommon = new();
+    public IReadOnlyList<CardData> uncommon => Uncommon;
+    [SerializeField] private List<CardData> Rare = new();
+    public IReadOnlyList<CardData> rare => Rare;
+    [SerializeField] private List<CardData> Special = new();
+    public IReadOnlyList<CardData> special => Special;
 
     private void Awake()
     {
