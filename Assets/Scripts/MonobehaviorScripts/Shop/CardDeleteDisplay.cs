@@ -9,27 +9,27 @@ using System.Collections;
 public class CardDeleteDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     [Header("UI References")]
-    public TextMeshProUGUI cardNameText;
-    public TextMeshProUGUI descriptionText;
-    public TextMeshProUGUI costText;
-    public Image cardImage;
-    public Image frameImage;
-    public Image RarityImage;
+    [SerializeField] private TextMeshProUGUI cardNameText;
+    [SerializeField] private TextMeshProUGUI descriptionText;
+    [SerializeField] private TextMeshProUGUI costText;
+    [SerializeField] private Image cardImage;
+    [SerializeField] private Image frameImage;
+    [SerializeField] private Image RarityImage;
 
     [Header("Frame Sprites")]
-    public Sprite attackFrame;
-    public Sprite skillFrame;
-    public Sprite powerFrame;
+    [SerializeField] private Sprite attackFrame;
+    [SerializeField] private Sprite skillFrame;
+    [SerializeField] private Sprite powerFrame;
 
     [Header("Hover Settings")] // 3. 호버 설정 추가
     [SerializeField] private float hoverScale = 1.1f;
     [SerializeField] private float animationDuration = 0.2f;
 
-    public CardData cardData;//디스플레이에 카드의 정보를 저장
+    private CardData cardData;//디스플레이에 카드의 정보를 저장
     private Vector3 originalScale;
     private int originalSiblingIndex;
     private Canvas cardCanvas;
-    bool isProcessed = false;
+    private bool isProcessed = false;
     private void Awake()
     {
         originalScale = transform.localScale;
@@ -92,6 +92,7 @@ public class CardDeleteDisplay : MonoBehaviour, IPointerEnterHandler, IPointerEx
         transform.DOScale(originalScale, animationDuration).SetEase(Ease.InQuad);
     }
 
+    /*
     public void OnPointerClick(PointerEventData eventData)
     {
         if (isProcessed) return;
@@ -139,16 +140,18 @@ public class CardDeleteDisplay : MonoBehaviour, IPointerEnterHandler, IPointerEx
             }
         }
     }
-
-    public int GetPrice()
+    */
+    public void OnPointerClick(PointerEventData eventData)
     {
-        return cardData.rarity switch
+        if (isProcessed) return;
+
+        // 복잡한 로직은 매니저에게 맡깁니다.
+        bool success = ShopManager.Instance.TryProcessCardAction(this.cardData);
+
+        if (success)
         {
-            CardRarity.Common => 50,
-            CardRarity.Uncommon => 70,
-            CardRarity.Rare => 100,
-            CardRarity.Special => 130,
-            _ => 9999
-        };
+            isProcessed = true;
+            Destroy(gameObject);
+        }
     }
 }

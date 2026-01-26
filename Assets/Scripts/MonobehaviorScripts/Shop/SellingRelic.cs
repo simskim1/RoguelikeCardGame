@@ -43,10 +43,16 @@ public class SellingRelic : MonoBehaviour
             GameObject relicObj = Instantiate(relicPrefab, contentArea);
             RelicTooltip tooltip = relicObj.GetComponent<RelicTooltip>();
             tooltip.RelicSetter(data);
-            Image relicImage = relicObj.GetComponentInChildren<Image>();
+            Image relicImage = relicObj.GetComponentInChildren<RelicImageTag>().GetComponent<Image>();
             relicImage.sprite = data.icon;
             TextMeshProUGUI relicNameText = relicObj.GetComponentInChildren<TextMeshProUGUI>();
             relicNameText.text = data.name;
+            Image relicRarity = relicObj.GetComponentInChildren<RelicRarityTag>().GetComponent<Image>();
+            switch (data.rarity)
+            {
+                case RelicRarity.Common: relicRarity.color = Color.white; break;
+                case RelicRarity.Rare: relicRarity.color = Color.blue; break;
+            }
         }
     }
 

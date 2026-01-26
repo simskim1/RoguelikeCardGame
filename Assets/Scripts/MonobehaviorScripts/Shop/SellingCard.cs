@@ -16,9 +16,9 @@ public class SellingCard : MonoBehaviour
 
     [SerializeField] private GameObject listRootPanel;
 
-    public List<CardData> sellList = new List<CardData>();
+    private List<CardData> sellList = new List<CardData>();
     private bool openCheck;
-    public int price;
+
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -98,5 +98,10 @@ public class SellingCard : MonoBehaviour
         {
             sellList.Add(selectedVisual);
         }
+    }
+
+    public List<CardData> SellListgetter()
+    {
+        return sellList;
     }
 }
