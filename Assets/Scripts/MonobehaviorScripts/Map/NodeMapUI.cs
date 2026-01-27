@@ -25,6 +25,6 @@ public class NodeMapUI : MonoBehaviour
         MapManager.Instance.SetCurrentNode(_nodeData);
 
         // 2. 씬 전환 실행
-        MapManager.Instance.OnNodeSelected(selected);
+        MapManager.Instance.OnNodeSelected(_nodeData);
     }
 }
