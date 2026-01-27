@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MapGenerator : MonoBehaviour
 {
-    public MapData mapData;
+    [SerializeField] private MapData mapData;
 
     public void GenerateMap()
     {

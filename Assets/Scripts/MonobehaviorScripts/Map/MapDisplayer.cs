@@ -7,13 +7,13 @@ public class MapDisplayer : MonoBehaviour
 {
     public static MapDisplayer Instance; // 접근 편의를 위한 싱글톤
 
-    public MapData mapData;
-    public GameObject nodePrefab;
-    public GameObject linePrefab;
-    public RectTransform content;
+    [SerializeField] private MapData mapData;
+    [SerializeField] private GameObject nodePrefab;
+    [SerializeField] private GameObject linePrefab;
+    [SerializeField] private RectTransform content;
 
-    public float xSpacing = 150f;
-    public float ySpacing = 200f;
+    private float xSpacing = 150f;
+    private float ySpacing = 200f;
 
     // 핵심: 논리적 좌표(Vector2Int)를 실제 UI 좌표(Vector2)로 연결하는 사전
     private Dictionary<Vector2Int, Vector2> nodePositions = new Dictionary<Vector2Int, Vector2>();

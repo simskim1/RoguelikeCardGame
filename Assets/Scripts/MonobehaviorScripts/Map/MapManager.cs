@@ -2,16 +2,16 @@ using UnityEngine;
 
 public class MapManager : MonoBehaviour
 {
-    public MapData mapData;
-    public MapGenerator generator;
+    [SerializeField] private MapData mapData;
+    [SerializeField] private MapGenerator generator;
 
     public static MapManager Instance; // ¡¢±Ÿ ∆Ì¿«∏¶ ¿ß«— ΩÃ±€≈Ê
 
-    public MapNode SelectedNode;
-    public MapNode PlayerNode;
-    public PlayerData playerData;
-    public DeckData playerDeck;
-    public DeckData basicDeck;
+    [SerializeField] private MapNode SelectedNode;
+    [SerializeField] private MapNode PlayerNode;
+    [SerializeField] private PlayerData playerData;
+    [SerializeField] private DeckData playerDeck;
+    [SerializeField] private DeckData basicDeck;
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -110,5 +110,10 @@ public class MapManager : MonoBehaviour
     {
         playerDeck.masterDeck = null;
         playerDeck.masterDeck = basicDeck.masterDeck;
+    }
+
+    public MapNode SelectedNodeGetter()
+    {
+        return SelectedNode;
     }
 }

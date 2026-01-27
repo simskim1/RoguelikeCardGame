@@ -92,55 +92,7 @@ public class CardDeleteDisplay : MonoBehaviour, IPointerEnterHandler, IPointerEx
         transform.DOScale(originalScale, animationDuration).SetEase(Ease.InQuad);
     }
 
-    /*
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        if (isProcessed) return;
-        Debug.Log("클릭 감지됨 (OnPointerDown)");
-        if (ShopManager.Instance.isDeleting == true)
-        {
-            for (int i = 0; i < ShopManager.Instance.deckData.masterDeck.Count; i++)
-            {
-                if (ShopManager.Instance.deckData.masterDeck[i].cardName == cardData.cardName)
-                {
-                    ShopManager.Instance.deckData.masterDeck.RemoveAt(i);
-                    ShopManager.Instance.DeletePanel.SetActive(false);
-                    ShopManager.Instance.isDeleting = false;
-                    break;
-                }
 
-            }
-        }
-        else
-        {
-            // 구매 모드 로직
-            int price = GetPrice(); // 가격 계산 로직 분리 (아래 참고)
-
-            if (ShopManager.Instance.playerData.money >= price)
-            {
-                // 돈 차감 (잊지 마세요!)
-                ShopManager.Instance.playerData.money -= price;
-                ShopManager.Instance.moneyText.text = ShopManager.Instance.playerData.money.ToString();
-                // 내 덱에 추가
-                ShopManager.Instance.deckData.masterDeck.Add(cardData);
-
-                // 중요: 판매 리스트(데이터)에서 제거
-                // 인덱스가 아닌 '객체' 자체를 찾아서 제거해야 안전합니다.
-                if (SellingCard.Instance.sellList.Contains(this.cardData))
-                {
-                    SellingCard.Instance.sellList.Remove(this.cardData);
-                }
-                isProcessed = true;
-                // 중요: 화면에서 프리팹 파괴
-                Destroy(this.gameObject);
-            }
-            else
-            {
-                Debug.Log("돈이 부족합니다.");
-            }
-        }
-    }
-    */
     public void OnPointerClick(PointerEventData eventData)
     {
         if (isProcessed) return;

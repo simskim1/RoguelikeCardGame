@@ -20,10 +20,11 @@ public class NodeMapUI : MonoBehaviour
 
     private void OnNodeClick()
     {
+        MapNode selected = MapManager.Instance.SelectedNodeGetter();
         // 1. 현재 선택된 노드 정보를 저장
         MapManager.Instance.SetCurrentNode(_nodeData);
 
         // 2. 씬 전환 실행
-        MapManager.Instance.OnNodeSelected(MapManager.Instance.SelectedNode);
+        MapManager.Instance.OnNodeSelected(selected);
     }
 }
