@@ -17,11 +17,11 @@ public class DeckManager : MonoBehaviour
     public Transform handParent;   // 카드가 배치될 부모 오브젝트
 
     // 실시간 카드 더미들
-    public List<CardData> drawPile = new List<CardData>();
+    private List<CardData> drawPile = new List<CardData>();
     private List<CardData> hand = new List<CardData>();
-    public List<CardData> discardPile = new List<CardData>();
+    private List<CardData> discardPile = new List<CardData>();
 
-    public int firstDrawCard = 5;
+    private int firstDrawCard = 5;
 
     private void Awake()
     {
@@ -161,5 +161,15 @@ public class DeckManager : MonoBehaviour
         masterDeck.Add(data);
         Debug.Log($"{data.cardName}이(가) 영구적으로 덱에 추가되었습니다! 현재 덱 수: {masterDeck.Count}");
         deck.masterDeck = masterDeck;
+    }
+    //getter/setter--------------------
+    public List<CardData> DrawPileGetter()
+    {
+        return drawPile;
+    }
+
+    public List<CardData> DiscardPileGetter()
+    {
+        return discardPile;
     }
 }

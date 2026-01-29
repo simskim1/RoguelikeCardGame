@@ -10,17 +10,17 @@ public class Enemy : MonoBehaviour, IDropHandler
 {
     public static Enemy Instance; // 접근 편의를 위한 싱글톤
 
-    public EnemyData[] enemyData;//일단은 배열이 하나이지만, 나중에 래퍼 클래스를 이용하여 랜덤으로 결정된 어느 챕터의 일반, 엘리트, 또는 보스의 어느 몬스터가 나올지를 결정하게 할 수 있다.
-    public int enemyWho { get; private set; }
-    public int _currentHp { get; private set; }
+    [SerializeField] private EnemyData[] enemyData;//일단은 배열이 하나이지만, 나중에 래퍼 클래스를 이용하여 랜덤으로 결정된 어느 챕터의 일반, 엘리트, 또는 보스의 어느 몬스터가 나올지를 결정하게 할 수 있다.
+    private int enemyWho;
+    private int _currentHp;
 
     [SerializeField] private Slider hpSlider; // UI 슬라이더 연결
     private Image _enemyImage;
 
-    public EnemyAction nextAction;
+    private EnemyAction nextAction;
     [SerializeField] private EnemyUI enemyUI; // 인스펙터에서 연결하거나 GetComponentInChildren
 
-    public StatusController status;
+    [SerializeField] private StatusController status;
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -77,7 +77,6 @@ public class Enemy : MonoBehaviour, IDropHandler
     void Die()
     {
         BattleManager.Instance.CheckEnemyDeaths();
-        Debug.Log($"적이 처치되었습니다! 남은 적:{BattleManager.Instance.activeEnemies.Count}");
         // 여기서 애니메이션이나 파괴 로직 실행
     }
 
@@ -86,8 +85,9 @@ public class Enemy : MonoBehaviour, IDropHandler
         CardDisplay card1 = eventData.pointerDrag.GetComponent<CardDisplay>();
         if (card1 != null)
         {
+            TargetingArrow arr = card1.TargetingArrowGetter();
             // 카드가 가지고 있는 화살표를 직접 끔
-            if (card1.arrow != null) card1.arrow.gameObject.SetActive(false);
+            if (arr != null) card1.TargetingArrowGetter().gameObject.SetActive(false);
 
             
         }
@@ -100,23 +100,23 @@ public class Enemy : MonoBehaviour, IDropHandler
         if (card != null)
         {
             // 공격 카드일 때만 데미지 주기
-            if(card.cardData.hasCardEffect ==true && card.cardData.cardType == CardType.Attack && BattleManager.Instance.CanUseCard(card.cardData.energyCost))
+            if(card.CardDataGetter().hasCardEffect ==true && card.CardDataGetter().cardType == CardType.Attack && BattleManager.Instance.CanUseCard(card.CardDataGetter().energyCost))
             {
-                foreach (CardEffect effect in card.cardData.cardEffect)
+                foreach (CardEffect effect in card.CardDataGetter().cardEffect)
                 {
                     // 부모 틀에 정의된 Execute를 호출하면, 
                     // 실제 데이터(DamageEffect 등)에 따라 다르게 작동합니다. (다형성)
                     effect.Execute(PlayerController.Instance.gameObject, this.gameObject);
                 }
-                BattleManager.Instance.UseEnergy(card.cardData.energyCost);
-                DeckManager.Instance.DiscardCardDragged(card.cardData, eventData);
+                BattleManager.Instance.UseEnergy(card.CardDataGetter().energyCost);
+                DeckManager.Instance.DiscardCardDragged(card.CardDataGetter(), eventData);
                 Destroy(draggedObject);
             }
-            else if (card.cardData.cardType == CardType.Attack && BattleManager.Instance.CanUseCard(card.cardData.energyCost))
+            else if (card.CardDataGetter().cardType == CardType.Attack && BattleManager.Instance.CanUseCard(card.CardDataGetter().energyCost))
             {
-                TakeDamage(card.cardData.value);
-                BattleManager.Instance.UseEnergy(card.cardData.energyCost);
-                DeckManager.Instance.DiscardCardDragged(card.cardData, eventData);
+                TakeDamage(card.CardDataGetter().value);
+                BattleManager.Instance.UseEnergy(card.CardDataGetter().energyCost);
+                DeckManager.Instance.DiscardCardDragged(card.CardDataGetter(), eventData);
                 Destroy(draggedObject);
             }
         }
@@ -145,5 +145,17 @@ public class Enemy : MonoBehaviour, IDropHandler
         yield return new WaitForSeconds(1.0f);
 
         DecideNextAction(); // 행동 후 다음 턴 의도 미리 결정
+    }
+
+    //getter/setter--------------------------
+
+    public StatusController StatusGetter()
+    {
+        return status;
+    }
+
+    public int CurrentHpGetter()
+    {
+        return _currentHp;
     }
 }

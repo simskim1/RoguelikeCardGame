@@ -30,12 +30,12 @@ public class DeckButton : MonoBehaviour
             return;
         }
 
-        if (DeckManager.Instance.drawPile == null)
+        if (DeckManager.Instance.DrawPileGetter() == null)
         {
             Debug.LogError("drawPile 리스트 자체가 초기화되지 않았습니다!");
             return;
         }
         // 싱글톤 패턴을 잘 활용하고 계시네요!
-        CardListUI.Instance.Open("덱 리스트", DeckManager.Instance.drawPile);
+        CardListUI.Instance.Open("덱 리스트", DeckManager.Instance.DrawPileGetter());
     }
 }

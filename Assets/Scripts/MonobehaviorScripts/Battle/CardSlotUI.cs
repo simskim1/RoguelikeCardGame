@@ -13,9 +13,9 @@ public class CardSlotUI : MonoBehaviour
     [SerializeField] private Image cardImage;
 
     [Header("«¡∑π¿”")]
-    [SerializeField] public Sprite attackFrame;
-    [SerializeField] public Sprite skillFrame;
-    [SerializeField] public Sprite powerFrame;
+    [SerializeField] private Sprite attackFrame;
+    [SerializeField] private Sprite skillFrame;
+    [SerializeField] private Sprite powerFrame;
 
     private CardData _cardData;
     private Button _button;

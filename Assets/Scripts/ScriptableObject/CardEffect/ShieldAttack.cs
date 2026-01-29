@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ShieldAttack", menuName = "CardEffects/ShieldAttack")]
 public class ShieldAttack : CardEffect
 {
-    public float multiplier = 1.0f;
+    private float multiplier = 1.0f;
 
     public override void Execute(GameObject player, GameObject enemy)
     {
@@ -20,7 +20,7 @@ public class ShieldAttack : CardEffect
             if (statusEffect != null)
             {
                 for(int i = 0; i < statusEffect.Length; i++)
-                    targetEnemy.status.AddStatus(statusEffect[i], 1, 1);
+                    targetEnemy.StatusGetter().AddStatus(statusEffect[i], 1, 1);
             }
             Debug.Log($"방어도 {status.currentBlock}만큼 공격!");
         }

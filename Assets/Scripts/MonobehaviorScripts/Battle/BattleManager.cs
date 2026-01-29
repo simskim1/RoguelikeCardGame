@@ -10,13 +10,13 @@ public class BattleManager : MonoBehaviour
     public static BattleManager Instance; // 접근 편의를 위한 싱글톤
 
     [Header("Energy Settings")]
-    public int maxEnergy = 3;
-    public int currentEnergy;
+    [SerializeField] private int maxEnergy = 3;
+    [SerializeField] private int currentEnergy;
 
     [Header("UI References")]
-    public TextMeshProUGUI energyText;
-    public Image energyIcon;          // 캐릭터에 따른 아이콘 변경을 나중에 구현하기 위해
-    public GameObject winButton;
+    [SerializeField] private TextMeshProUGUI energyText;
+    [SerializeField] private Image energyIcon;          // 캐릭터에 따른 아이콘 변경을 나중에 구현하기 위해
+    [SerializeField] private GameObject winButton;
 
     [Header("Enemy Spawning")]
     [SerializeField] private GameObject enemyPrefab; // 소환할 적 프리팹 영역. 이영역을 추가, 분할해서 챕터구분으로 사용도 가능
@@ -25,9 +25,9 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private RewardUI rewardUI; // RewardCanvas와 연결된 스크립트
 
     private Enemy _currentEnemy; // 현재 소환된 적 참조 저장
-    public List<Enemy> activeEnemies = new List<Enemy>();
+    private List<Enemy> activeEnemies = new List<Enemy>();
 
-    public BattleState currentState;//현재 턴의 상태를 저장
+    private BattleState currentState;//현재 턴의 상태를 저장
 
     private List<StatusController> _allControllers = new List<StatusController>();
     public void RegisterEntity(StatusController controller) => _allControllers.Add(controller);
@@ -104,7 +104,7 @@ public class BattleManager : MonoBehaviour
         // 뒤에서부터 앞으로 루프를 돕니다.
         for (int i = activeEnemies.Count - 1; i >= 0; i--)
         {
-            if (activeEnemies[i]._currentHp <= 0)
+            if (activeEnemies[i].CurrentHpGetter() <= 0)
             {
                 activeEnemies.RemoveAt(i);
             }
@@ -203,5 +203,14 @@ public class BattleManager : MonoBehaviour
         }
         //턴 시작시 유물 실행
         RelicManager.Instance.NotifyTurnStart();
+    }
+    //--------------------getter/setter
+    public void currentEnergySetter(int count)
+    {
+        currentEnergy += count;
+    }
+
+    public void CurrentStateSetter(BattleState changed) {
+        currentState = changed;
     }
 }

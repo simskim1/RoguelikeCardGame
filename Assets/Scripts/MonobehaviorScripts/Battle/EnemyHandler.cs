@@ -14,9 +14,9 @@ public class EnemyHandler : MonoBehaviour, IDropHandler
         if (card != null && enemy != null)
         {
             // 공격 카드일 때만 데미지 주기
-            if (card.cardData.cardType == CardType.Attack)
+            if (card.CardDataGetter().cardType == CardType.Attack)
             {
-                enemy.TakeDamage(card.cardData.value);
+                enemy.TakeDamage(card.CardDataGetter().value);
             }
         }
     }

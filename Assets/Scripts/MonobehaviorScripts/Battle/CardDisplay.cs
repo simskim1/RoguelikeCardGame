@@ -8,27 +8,27 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                            IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerDownHandler
 {
     [Header("UI References")]
-    public TextMeshProUGUI cardNameText;
-    public TextMeshProUGUI descriptionText;
-    public TextMeshProUGUI costText;
-    public Image cardImage;
-    public Image frameImage;
+    [SerializeField] private TextMeshProUGUI cardNameText;
+    [SerializeField] private TextMeshProUGUI descriptionText;
+    [SerializeField] private TextMeshProUGUI costText;
+    [SerializeField] private Image cardImage;
+    [SerializeField] private Image frameImage;
 
     [Header("Frame Sprites")]
-    public Sprite attackFrame;
-    public Sprite skillFrame;
-    public Sprite powerFrame;
+    [SerializeField] private Sprite attackFrame;
+    [SerializeField] private Sprite skillFrame;
+    [SerializeField] private Sprite powerFrame;
 
     [Header("Hover Settings")] // 3. 호버 설정 추가
     [SerializeField] private float hoverScale = 1.1f;
     [SerializeField] private float animationDuration = 0.2f;
 
-    public CardData cardData;//디스플레이에 카드의 정보를 저장
+    private CardData cardData;//디스플레이에 카드의 정보를 저장
     private Vector3 originalScale;
     private int originalSiblingIndex;
     private Canvas cardCanvas;
 
-    public TargetingArrow arrow;
+    private TargetingArrow arrow;
     private Vector3 dragStartPosition;
     private Vector3 dragStartWorldPos;
     private Vector3 dragStartPos; // 카드 시작 위치 (로컬)
@@ -187,5 +187,13 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             Debug.Log("우클릭 감지됨 (OnPointerDown)");
             CardFocusManager.Instance.ShowFocusView(cardData);
         }
+    }
+    //getter/Setter------------
+    public TargetingArrow TargetingArrowGetter()
+    {
+        return arrow;
+    }
+    public CardData CardDataGetter() { 
+        return cardData;
     }
 }

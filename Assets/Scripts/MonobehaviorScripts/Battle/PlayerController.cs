@@ -110,7 +110,7 @@ public class PlayerController : MonoBehaviour
     {
         DeckManager.Instance.DeckReset();
         mapData.nodes = null;
-        BattleManager.Instance.currentState = BattleState.Lose;
+        BattleManager.Instance.CurrentStateSetter(BattleState.Lose);
         Destroy(gameObject);
     }
 }

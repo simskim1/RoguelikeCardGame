@@ -30,12 +30,7 @@ public class GraveyardButton : MonoBehaviour
             return;
         }
 
-        if (DeckManager.Instance.drawPile == null)
-        {
-            Debug.LogError("drawPile 리스트 자체가 초기화되지 않았습니다!");
-            return;
-        }
         // 싱글톤 패턴을 잘 활용하고 계시네요!
-        CardListUI.Instance.Open("버린 카드 리스트", DeckManager.Instance.discardPile);
+        CardListUI.Instance.Open("버린 카드 리스트", DeckManager.Instance.DiscardPileGetter());
     }
 }

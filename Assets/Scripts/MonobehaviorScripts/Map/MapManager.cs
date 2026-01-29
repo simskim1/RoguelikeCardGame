@@ -95,14 +95,7 @@ public class MapManager : MonoBehaviour
                     UnityEngine.SceneManagement.SceneManager.LoadScene("BattleScene");
                 }
             }
-            /*mapData.currentFloor = selectedNode.blueprintPos.y;
-            mapData.currentPlayerNode = selectedNode.blueprintPos;
-            PlayerNode = SelectedNode;
-            // 전투 노드라면 전투 씬으로!
-            if (selectedNode.nodeType == NodeType.Battle)
-            {
-                UnityEngine.SceneManagement.SceneManager.LoadScene("BattleScene");
-            }*/
+            
         }
     }
 
