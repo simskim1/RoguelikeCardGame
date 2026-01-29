@@ -6,23 +6,23 @@ public class PlayerController : MonoBehaviour
 {
     public static PlayerController Instance; // 접근 편의를 위한 싱글톤
 
-    public PlayerData playerData;
-    public PlayerUI playerUI;
+    [SerializeField] private PlayerData playerData;
+    [SerializeField] private PlayerUI playerUI;
 
     [Header("Runtime State")]
-    public int currentHP;
-    public int currentBlock;
+    [SerializeField] private int currentHP;
+    [SerializeField] private int currentBlock;
 
     // UI 업데이트를 위한 이벤트를 쓰면 좋습니다 (옵저버 패턴의 기초)
-    public System.Action<int, int> OnHealthChanged; // <Current, Max>
-    public System.Action<int> OnBlockChanged;
+    public event System.Action<int, int> OnHealthChanged; // <Current, Max>
+    public event System.Action<int> OnBlockChanged;
 
     [SerializeField] private UnityEngine.UI.Slider hpSlider;
     private UnityEngine.UI.Image _playerImage;
 
     private StatusController status;
 
-    public MapData mapData;
+    [SerializeField] private MapData mapData;
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -112,5 +112,15 @@ public class PlayerController : MonoBehaviour
         mapData.nodes = null;
         BattleManager.Instance.CurrentStateSetter(BattleState.Lose);
         Destroy(gameObject);
+    }
+    
+    public void SetHpAfterBattle()
+    {
+        playerData.currentHP = currentHP;
+    }
+    //getter/setter--------------------------
+    public int CurrentBlockGetter()
+    {
+        return currentBlock;
     }
 }

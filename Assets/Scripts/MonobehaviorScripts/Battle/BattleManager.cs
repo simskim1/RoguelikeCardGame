@@ -122,7 +122,7 @@ public class BattleManager : MonoBehaviour
     {
         activeEnemies.Clear(); // 중복 실행 방지
         Debug.Log("전투 승리!");
-        PlayerController.Instance.playerData.currentHP = PlayerController.Instance.currentHP;
+        PlayerController.Instance.SetHpAfterBattle();
         DeckManager.Instance.DeckReset();
         // 보상 시스템 호출
         rewardUI.ShowRewardPanel();

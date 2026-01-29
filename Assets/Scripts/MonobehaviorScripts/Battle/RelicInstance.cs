@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class RelicInstance
 {
-    public BaseRelic relic; // "어떤 효과인가?" (SO를 참조)
-
+    [SerializeField] private BaseRelic Relic; // "어떤 효과인가?" (SO를 참조)
+    public BaseRelic relic => Relic;
     public RelicInstance(BaseRelic data)
     {
-        relic = data;
+        Relic = data;
     }
 }

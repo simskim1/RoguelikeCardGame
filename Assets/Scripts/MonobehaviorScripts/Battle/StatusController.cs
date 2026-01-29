@@ -6,7 +6,7 @@ public class StatusController : MonoBehaviour
     private float finalDamage;
     public List<StatusInstance> activeStatuses = new List<StatusInstance>();
 
-    public System.Action OnStatusChanged; // 상태 변화를 알리는 이벤트
+    public event System.Action OnStatusChanged; // 상태 변화를 알리는 이벤트
 
     //카드로 스테이터스를 붙일 때는 CardEffect를, 적이 스테이터스를 붙일때는 의도들에 효과를 다는 형태로 이용
     public void AddStatus(StatusEffect effect, int amt, int dur)
@@ -15,8 +15,8 @@ public class StatusController : MonoBehaviour
         var existing = activeStatuses.Find(s => s.effectData == effect);
         if (existing != null)
         {
-            existing.stacks += amt;
-            existing.duration += dur;
+            existing.AddStacks(amt);
+            existing.AddDuration(dur);
         }
         else
         {
@@ -35,7 +35,7 @@ public class StatusController : MonoBehaviour
 
             var inst = activeStatuses[i];
             inst.effectData.OnTurnStart(gameObject, inst);
-            inst.duration--;
+            inst.AddDuration(-1);
 
             if (inst.duration <= 0)
             {

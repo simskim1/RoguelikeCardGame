@@ -135,7 +135,7 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
         if (arrow != null)
         {
-            arrow.lineRenderer.enabled = true;
+            arrow.LineRendererGetter().enabled = true;
             arrow.gameObject.SetActive(true);
         }
 
@@ -174,7 +174,7 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         if (arrow != null)
         {
             arrow.gameObject.SetActive(false);
-            arrow.lineRenderer.enabled = false;
+            arrow.LineRendererGetter().enabled = false;
         }
         cardCanvas.sortingOrder = 0;
     }

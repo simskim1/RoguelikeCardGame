@@ -5,10 +5,10 @@ public class TargetingArrow : MonoBehaviour
 {
     public static TargetingArrow Instance;
 
-    public LineRenderer lineRenderer;
-    public int pointsCount = 30;
-    public float curveHeightFactor = 0.25f; // 너무 높으면 포물선이 과해지니 0.2~0.3 권장
-    public RectTransform arrowHead; // 화살촉 이미지의 RectTransform
+    [SerializeField] private LineRenderer lineRenderer;
+    [SerializeField] private int pointsCount = 30;
+    [SerializeField] private float curveHeightFactor = 0.25f; // 너무 높으면 포물선이 과해지니 0.2~0.3 권장
+    [SerializeField] private RectTransform arrowHead; // 화살촉 이미지의 RectTransform
 
     void Awake()
     {
@@ -67,5 +67,10 @@ public class TargetingArrow : MonoBehaviour
     {
         float u = 1 - t;
         return u * u * p0 + 2 * u * t * p1 + t * t * p2;
+    }
+    //getter/setter-----------------------
+    public LineRenderer LineRendererGetter()
+    {
+        return lineRenderer;
     }
 }

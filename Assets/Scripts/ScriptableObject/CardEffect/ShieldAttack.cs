@@ -15,14 +15,14 @@ public class ShieldAttack : CardEffect
         Enemy targetEnemy = enemy.GetComponent<Enemy>();
         if (status != null)
         {
-            int damage = Mathf.RoundToInt(status.currentBlock * multiplier);
+            int damage = Mathf.RoundToInt(status.CurrentBlockGetter() * multiplier);
             targetEnemy.TakeDamage(damage);
             if (statusEffect != null)
             {
                 for(int i = 0; i < statusEffect.Length; i++)
                     targetEnemy.StatusGetter().AddStatus(statusEffect[i], 1, 1);
             }
-            Debug.Log($"방어도 {status.currentBlock}만큼 공격!");
+            Debug.Log($"방어도 {status.CurrentBlockGetter()}만큼 공격!");
         }
     }
 }
