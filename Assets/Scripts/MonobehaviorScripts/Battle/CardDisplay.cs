@@ -169,7 +169,7 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             arrow.DrawCurve(dragStartPos, mouseInCanvasPos);
         }
     }
-    public void OnEndDrag(PointerEventData eventData)//포물선의 캐릭터 위에 떨어졌을 때의 삭제는 여기가 아닌 Enemy와 Player의 onDrop에서 구현중임.
+    public void OnEndDrag(PointerEventData eventData)//포물선의 적 위에 떨어졌을 때의 삭제, 즉 공격의 처리는 여기가 아닌 Enemy의 onDrop에서 구현중임.
     {
         if (arrow != null)
         {
@@ -177,6 +177,18 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             arrow.LineRendererGetter().enabled = false;
         }
         cardCanvas.sortingOrder = 0;
+        if(cardData.hasCardEffect == true && (cardData.cardType == CardType.Skill || cardData.cardType == CardType.Power) && BattleManager.Instance.CanUseCard(cardData.energyCost))
+        {
+            foreach (CardEffect effect in cardData.cardEffect)
+            {
+                // 부모 틀에 정의된 Execute를 호출하면, 
+                // 실제 데이터(DamageEffect 등)에 따라 다르게 작동합니다. (다형성)
+                effect.Execute(PlayerController.Instance.gameObject, this.gameObject, cardData);
+            }
+            BattleManager.Instance.UseEnergy(cardData.energyCost);
+            DeckManager.Instance.DiscardCardDragged(cardData, eventData);
+            Destroy(gameObject);
+        }
     }
 
     public void OnPointerDown(PointerEventData eventData)

@@ -5,5 +5,5 @@ using static UnityEngine.EventSystems.EventTrigger;
 public abstract class CardEffect : ScriptableObject
 {
     public StatusEffect[] statusEffect;
-    public abstract void Execute(GameObject player, GameObject enemy);
+    public abstract void Execute(GameObject player, GameObject enemy, CardData cardData);
 }

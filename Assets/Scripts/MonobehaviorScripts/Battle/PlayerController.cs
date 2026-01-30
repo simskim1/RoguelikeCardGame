@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
@@ -118,9 +119,19 @@ public class PlayerController : MonoBehaviour
     {
         playerData.currentHP = currentHP;
     }
+
+    public void BlockChangedInvoker()
+    {
+        OnBlockChanged?.Invoke(currentBlock);
+    }
     //getter/setter--------------------------
     public int CurrentBlockGetter()
     {
         return currentBlock;
+    }
+
+    public void CurrentBlockAdder(int amt)
+    {
+        currentBlock += amt;
     }
 }

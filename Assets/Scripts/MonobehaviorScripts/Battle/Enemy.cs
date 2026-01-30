@@ -106,7 +106,7 @@ public class Enemy : MonoBehaviour, IDropHandler
                 {
                     // 부모 틀에 정의된 Execute를 호출하면, 
                     // 실제 데이터(DamageEffect 등)에 따라 다르게 작동합니다. (다형성)
-                    effect.Execute(PlayerController.Instance.gameObject, this.gameObject);
+                    effect.Execute(PlayerController.Instance.gameObject, this.gameObject, card.CardDataGetter());
                 }
                 BattleManager.Instance.UseEnergy(card.CardDataGetter().energyCost);
                 DeckManager.Instance.DiscardCardDragged(card.CardDataGetter(), eventData);
