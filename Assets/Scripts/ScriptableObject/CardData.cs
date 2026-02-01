@@ -22,6 +22,8 @@ public class CardData : ScriptableObject
 
     [Header("효과 수치")]
     public int value;
+    [Header("사용시 소멸 여부")]
+    public bool IsVanishing;
 
 }
 

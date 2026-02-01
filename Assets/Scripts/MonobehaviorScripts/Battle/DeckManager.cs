@@ -116,13 +116,21 @@ public class DeckManager : MonoBehaviour
         // 1. 객체 자체를 리스트에서 지우기 (더 안전함)
         if (hand.Contains(card))
         {
-            hand.Remove(card);
-            discardPile.Add(card);
-
-            // 묘지 존재하는 카드 전부 출력 (디버깅용)
-            foreach (var discard in discardPile)
+            if(card.cardType == CardType.Power || card.IsVanishing == true)
             {
-                Debug.Log($"{discard.cardName}가 묘지로 갔습니다");
+                hand.Remove(card);
+                Debug.Log($"{card.cardName}가 파워로 사용됐습니다");
+            }
+            else
+            {
+                hand.Remove(card);
+                discardPile.Add(card);
+
+                // 묘지 존재하는 카드 전부 출력 (디버깅용)
+                foreach (var discard in discardPile)
+                {
+                    Debug.Log($"{discard.cardName}가 묘지로 갔습니다");
+                }
             }
         }
         else

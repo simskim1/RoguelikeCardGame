@@ -31,6 +31,8 @@ public class BattleManager : MonoBehaviour
 
     private List<StatusController> _allControllers = new List<StatusController>();
     public void RegisterEntity(StatusController controller) => _allControllers.Add(controller);
+
+    private bool isFirstTurn;
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -39,6 +41,7 @@ public class BattleManager : MonoBehaviour
 
     private void Start()
     {
+        isFirstTurn = true;
         winButton.SetActive(false);
         PlayerController.Instance.Initialize();
         SpawnEnemy();
@@ -180,6 +183,7 @@ public class BattleManager : MonoBehaviour
     }
     void StartPlayerTurn()
     {
+        isFirstTurn = false;
         for (int i = _allControllers.Count-1; i >= 0; i--)
         {
             _allControllers[i].TickTurn();
@@ -212,5 +216,10 @@ public class BattleManager : MonoBehaviour
 
     public void CurrentStateSetter(BattleState changed) {
         currentState = changed;
+    }
+
+    public bool IsFirstTurnGetter()
+    {
+        return isFirstTurn;
     }
 }

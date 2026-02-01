@@ -23,6 +23,9 @@ public class PlayerController : MonoBehaviour
 
     private StatusController status;
 
+    //다양한 카드들에 의한 변수들----------------------------------
+    private bool GuardStance = false;
+
     [SerializeField] private MapData mapData;
     private void Awake()
     {
@@ -59,7 +62,10 @@ public class PlayerController : MonoBehaviour
 
     public void OnTurnStart()
     {
-        currentBlock = 0;
+        if (!GuardStance)
+        {
+            currentBlock = 0;
+        }
         OnBlockChanged?.Invoke(currentBlock);
     }
 
@@ -133,5 +139,10 @@ public class PlayerController : MonoBehaviour
     public void CurrentBlockAdder(int amt)
     {
         currentBlock += amt;
+    }
+
+    public void GuardStanceSetter(bool check)
+    {
+        GuardStance = check;
     }
 }
