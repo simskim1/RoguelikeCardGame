@@ -7,6 +7,7 @@ public class StatusIconUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 {
     [SerializeField] private Image iconImage;
     [SerializeField] private TextMeshProUGUI countText;
+    [SerializeField] private TextMeshProUGUI DurationText;
 
     private StatusInstance myInstance; // 현재 이 아이콘이 들고 있는 데이터
     private bool isHovering = false;
@@ -20,6 +21,14 @@ public class StatusIconUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             countText.text = instance.stacks.ToString();
         else
             countText.text = "";
+        if (instance.duration > 0)
+        {
+            DurationText.text = instance.duration.ToString();
+        }
+        else
+        {
+            DurationText.text = "";
+        }
     }
 
     // 마우스가 아이콘 영역에 들어왔을 때

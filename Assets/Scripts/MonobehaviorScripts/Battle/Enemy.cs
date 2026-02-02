@@ -8,7 +8,6 @@ using static EnemyData;
 
 public class Enemy : MonoBehaviour, IDropHandler
 {
-    public static Enemy Instance; // 접근 편의를 위한 싱글톤
 
     [SerializeField] private EnemyData[] enemyData;//일단은 배열이 하나이지만, 나중에 래퍼 클래스를 이용하여 랜덤으로 결정된 어느 챕터의 일반, 엘리트, 또는 보스의 어느 몬스터가 나올지를 결정하게 할 수 있다.
     private int enemyWho;
@@ -20,11 +19,11 @@ public class Enemy : MonoBehaviour, IDropHandler
     private EnemyAction nextAction;
     [SerializeField] private EnemyUI enemyUI; // 인스펙터에서 연결하거나 GetComponentInChildren
 
-    [SerializeField] private StatusController status;
+    [SerializeField] private StatusController enemyStatus;
+    private StatusController playerStatus;
+
     private void Awake()
     {
-        if (Instance == null) Instance = this;
-        else Destroy(gameObject); // 중복 방지
         init();
     }
 
@@ -45,13 +44,22 @@ public class Enemy : MonoBehaviour, IDropHandler
             _currentHp = enemyData[enemyWho].maxHp;//현재체력도 변경.
             UpdateHpUI();
         }
-        status = GetComponent<StatusController>();
-        BattleManager.Instance.RegisterEntity(status);
+        RectTransform rect = GetComponent<RectTransform>();
+        if (rect != null)
+        {
+            rect.localScale = Vector3.one; // Local Scale을 (1,1,1)로 초기화
+            rect.sizeDelta = new Vector2(100, 100); // 원하는 Width, Height 강제 지정
+            rect.anchoredPosition = Vector2.zero; // 부모(SpawnPoint)의 정중앙에 위치
+        }
+        enemyStatus = GetComponent<StatusController>();
+        BattleManager.Instance.RegisterEntity(enemyStatus);
+        playerStatus = PlayerController.Instance.GetComponent<StatusController>();
     }
 
     public void TakeDamage(int amount)
     {
-        int finalDamage =  status.DamageCheck(amount);
+        int checkingDamage = playerStatus.DamageCheck(amount);
+        int finalDamage =  enemyStatus.DamageCheck(checkingDamage);
         _currentHp -= finalDamage;
         _currentHp = Mathf.Clamp(_currentHp, 0, enemyData[enemyWho].maxHp); // 체력 하한/상한 고정
 
@@ -151,7 +159,7 @@ public class Enemy : MonoBehaviour, IDropHandler
 
     public StatusController StatusGetter()
     {
-        return status;
+        return enemyStatus;
     }
 
     public int CurrentHpGetter()

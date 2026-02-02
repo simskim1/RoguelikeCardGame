@@ -20,7 +20,7 @@ public class ShieldAttack : CardEffect
             if (statusEffect != null)
             {
                 for(int i = 0; i < statusEffect.Length; i++)
-                    targetEnemy.StatusGetter().AddStatus(statusEffect[i], 1, 1);
+                    targetEnemy.StatusGetter().AddStatus(statusEffect[i], enemy, -1, 1);
             }
             Debug.Log($"방어도 {status.CurrentBlockGetter()}만큼 공격!");
         }

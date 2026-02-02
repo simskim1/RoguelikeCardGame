@@ -9,7 +9,7 @@ public class StatusController : MonoBehaviour
     public event System.Action OnStatusChanged; // 상태 변화를 알리는 이벤트
 
     //카드로 스테이터스를 붙일 때는 CardEffect를, 적이 스테이터스를 붙일때는 의도들에 효과를 다는 형태로 이용
-    public void AddStatus(StatusEffect effect, int amt, int dur)
+    public void AddStatus(StatusEffect effect, GameObject entity, int amt, int dur)
     {
         // 이미 해당 상태 이상이 있는지 확인
         var existing = activeStatuses.Find(s => s.effectData == effect);
@@ -20,7 +20,7 @@ public class StatusController : MonoBehaviour
         }
         else
         {
-            var newInst = new StatusInstance(effect, amt, dur);
+            var newInst = new StatusInstance(effect, entity, amt, dur);
             activeStatuses.Add(newInst);
             effect.OnApply(gameObject, amt);
             Debug.Log($"상태 부여! 현재 {gameObject.name}의 상태 이상 개수: {activeStatuses.Count}");
@@ -37,7 +37,7 @@ public class StatusController : MonoBehaviour
             inst.effectData.OnTurnStart(gameObject, inst);
             inst.AddDuration(-1);
 
-            if (inst.duration <= 0)
+            if (inst.duration == 0)
             {
                 inst.effectData.OnRemove(gameObject);
                 activeStatuses.RemoveAt(i);

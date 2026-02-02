@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private UnityEngine.UI.Slider hpSlider;
     private UnityEngine.UI.Image _playerImage;
 
-    private StatusController status;
+    [SerializeField]private StatusController status;
 
     //다양한 카드들에 의한 변수들----------------------------------
     private bool GuardStance = false;
@@ -33,7 +33,6 @@ public class PlayerController : MonoBehaviour
         else Destroy(gameObject); // 중복 방지
         OnHealthChanged += playerUI.UpdateHealthUI;
         OnBlockChanged += playerUI.UpdateBlockUI;
-        status = GetComponent<StatusController>();
         BattleManager.Instance.RegisterEntity(status);
     }
 
@@ -144,5 +143,10 @@ public class PlayerController : MonoBehaviour
     public void GuardStanceSetter(bool check)
     {
         GuardStance = check;
+    }
+
+    public StatusController StatusControllerGetter()
+    {
+        return status;
     }
 }

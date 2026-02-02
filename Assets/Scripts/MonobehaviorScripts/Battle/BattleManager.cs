@@ -91,8 +91,7 @@ public class BattleManager : MonoBehaviour
     {
         if (enemyPrefab == null || enemySpawnPoint == null) return;
 
-        // 1. 프리팹 생성 (부모를 spawnPoint로 설정하여 UI 계층 유지)
-        GameObject enemyObj = Instantiate(enemyPrefab, enemySpawnPoint);
+        GameObject enemyObj = Instantiate(enemyPrefab, enemySpawnPoint, false);
 
         // 2. 생성된 오브젝트에서 Enemy 컴포넌트 참조
         _currentEnemy = enemyObj.GetComponent<Enemy>();
@@ -221,5 +220,10 @@ public class BattleManager : MonoBehaviour
     public bool IsFirstTurnGetter()
     {
         return isFirstTurn;
+    }
+
+    public BattleState CurrentStateGetter()
+    {
+        return currentState;
     }
 }
