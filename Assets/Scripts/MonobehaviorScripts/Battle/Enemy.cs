@@ -63,7 +63,7 @@ public class Enemy : MonoBehaviour, IDropHandler
         _currentHp -= finalDamage;
         _currentHp = Mathf.Clamp(_currentHp, 0, enemyData[enemyWho].maxHp); // 체력 하한/상한 고정
 
-        Debug.Log($"{enemyData[enemyWho].enemyName}이(가) {amount}의 데미지를 입음! 남은 체력: {_currentHp}");
+        Debug.Log($"{enemyData[enemyWho].enemyName}이(가) {finalDamage}의 데미지를 입음! 남은 체력: {_currentHp}");
 
         UpdateHpUI();
 
