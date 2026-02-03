@@ -140,6 +140,20 @@ public class PlayerController : MonoBehaviour
         currentBlock += amt;
     }
 
+    public int CurrentHpGetter()
+    {
+        return currentHP;
+    }
+
+    public void CurrentHpAdder(int amt)
+    {
+        currentHP += amt;
+    }
+
+    public PlayerData PlayerDataGetter()
+    {
+        return playerData;
+    }
     public void GuardStanceSetter(bool check)
     {
         GuardStance = check;

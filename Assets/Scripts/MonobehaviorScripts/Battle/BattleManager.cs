@@ -109,6 +109,7 @@ public class BattleManager : MonoBehaviour
             if (activeEnemies[i].CurrentHpGetter() <= 0)
             {
                 activeEnemies.RemoveAt(i);
+                RelicManager.Instance.NotifyEnemyDeath();
             }
         }
 
@@ -155,7 +156,7 @@ public class BattleManager : MonoBehaviour
         Debug.Log("적의 턴!");
         // 1. 플레이어 조작 비활성화 (UI 클릭 방지 등)
         currentState = BattleState.EnemyTurn;
-
+        DeckManager.Instance.CanDrawSetter(true);
         // 2. 남은 카드 버리기 (DeckManager 연동)
         DeckManager.Instance.DiscardHand();
 
@@ -225,5 +226,10 @@ public class BattleManager : MonoBehaviour
     public BattleState CurrentStateGetter()
     {
         return currentState;
+    }
+
+    public List<Enemy> ActiveEnemiesGetter()
+    {
+        return activeEnemies;
     }
 }

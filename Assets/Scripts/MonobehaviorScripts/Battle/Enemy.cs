@@ -108,7 +108,9 @@ public class Enemy : MonoBehaviour, IDropHandler
         if (card != null)
         {
             // 공격 카드일 때만 데미지 주기
-            if(card.CardDataGetter().hasCardEffect ==true && card.CardDataGetter().cardType == CardType.Attack && BattleManager.Instance.CanUseCard(card.CardDataGetter().energyCost))
+            if(card.CardDataGetter().hasCardEffect ==true && card.CardDataGetter().cardType == CardType.Attack && BattleManager.Instance.CanUseCard(card.CardDataGetter().energyCost)
+                || card.CardDataGetter().targetType == TargetType.Enemy && card.CardDataGetter().hasCardEffect == true && card.CardDataGetter().cardType == CardType.Skill && BattleManager.Instance.CanUseCard(card.CardDataGetter().energyCost)
+                || card.CardDataGetter().targetType == TargetType.AllEnemies && card.CardDataGetter().hasCardEffect == true && card.CardDataGetter().cardType == CardType.Skill && BattleManager.Instance.CanUseCard(card.CardDataGetter().energyCost))
             {
                 foreach (CardEffect effect in card.CardDataGetter().cardEffect)
                 {

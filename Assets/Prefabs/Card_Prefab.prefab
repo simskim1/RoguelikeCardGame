@@ -288,8 +288,6 @@ MonoBehaviour:
   powerFrame: {fileID: -2792633626737775024, guid: c444611e801514642bcf81f8e0504ddb, type: 3}
   hoverScale: 1.1
   animationDuration: 0.2
-  cardData: {fileID: 0}
-  arrow: {fileID: 0}
 --- !u!114 &1589095358425537916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -446,8 +444,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 13
-  m_fontSizeBase: 13
+  m_fontSize: 10
+  m_fontSizeBase: 10
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

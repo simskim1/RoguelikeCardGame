@@ -22,7 +22,7 @@ public class DeckManager : MonoBehaviour
     private List<CardData> discardPile = new List<CardData>();
 
     private int firstDrawCard = 5;
-
+    private bool canDraw;
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -30,6 +30,7 @@ public class DeckManager : MonoBehaviour
     }
     void Start()
     {
+        canDraw = true;
         //시작할 때 모든 카드를 뽑을 더미에 넣고 섞은 후 첫 번째 턴 드로우 매수만큼 뽑는다.
         SetupDeck();
         DrawCard(firstDrawCard);
@@ -66,39 +67,42 @@ public class DeckManager : MonoBehaviour
 
     public void DrawCard(int count)
     {
-        for (int i = 0; i < count; i++)
+        if (canDraw)
         {
-            // 뽑을 카드가 없으면 버린 카드 더미를 다시 가져옴
-            if (drawPile.Count == 0)
+            for (int i = 0; i < count; i++)
             {
-                if (discardPile.Count == 0) return; // 더 이상 카드가 없음
+                // 뽑을 카드가 없으면 버린 카드 더미를 다시 가져옴
+                if (drawPile.Count == 0)
+                {
+                    if (discardPile.Count == 0) return; // 더 이상 카드가 없음
 
-                drawPile.AddRange(discardPile);
-                discardPile.Clear();
-                Shuffle(drawPile);
+                    drawPile.AddRange(discardPile);
+                    discardPile.Clear();
+                    Shuffle(drawPile);
+                }
+
+                // 맨 위 카드 한 장 뽑기
+                CardData card = drawPile[0];
+                drawPile.RemoveAt(0);
+                hand.Add(card);//핸드 리스트에 추가
+
+
+                GameObject newCard = Instantiate(cardPrefab, handParent);//카드 프리팹으로 오브젝트 생성
+                CardDisplay display = newCard.GetComponent<CardDisplay>();// 그 오브젝트의 CardDisplay의 내용들을 가져옴
+
+                if (display != null)
+                {
+                    display.Setup(card);//뽑은 카드에 대한 Setup을 실행
+                }
+                Debug.Log($"{card.cardName}을(를) 뽑았습니다.");
+                int hcount = hand.Count;
+                for (int j = 0; j < hcount; j++)
+                {
+                    Debug.Log($"{hand[j].cardName}, ");
+                }
+
+                // TODO: 여기서 실제로 화면(UI)에 카드를 생성하는 코드 호출 필요!
             }
-
-            // 맨 위 카드 한 장 뽑기
-            CardData card = drawPile[0];
-            drawPile.RemoveAt(0);
-            hand.Add(card);//핸드 리스트에 추가
-
-            
-            GameObject newCard = Instantiate(cardPrefab, handParent);//카드 프리팹으로 오브젝트 생성
-            CardDisplay display = newCard.GetComponent<CardDisplay>();// 그 오브젝트의 CardDisplay의 내용들을 가져옴
-
-            if (display != null)
-            {
-                display.Setup(card);//뽑은 카드에 대한 Setup을 실행
-            }
-            Debug.Log($"{card.cardName}을(를) 뽑았습니다.");
-            int hcount = hand.Count;
-            for (int j = 0; j < hcount; j++)
-            {
-                Debug.Log($"{hand[j].cardName}, ");
-            }
-
-            // TODO: 여기서 실제로 화면(UI)에 카드를 생성하는 코드 호출 필요!
         }
     }
 
@@ -179,5 +183,10 @@ public class DeckManager : MonoBehaviour
     public List<CardData> DiscardPileGetter()
     {
         return discardPile;
+    }
+
+    public void CanDrawSetter(bool can)
+    {
+        canDraw = can;
     }
 }

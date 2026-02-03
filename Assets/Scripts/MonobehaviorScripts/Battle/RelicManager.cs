@@ -28,6 +28,13 @@ public class RelicManager : MonoBehaviour
         }
     }
 
+    public void NotifyEnemyDeath()
+    {
+        foreach (BaseRelic relic in playerData.currentRelic)
+        {
+            relic.OnEnemyDeath();
+        }
+    }
     public void AddRelic(BaseRelic newRelic)
     {
         // 유물 획득 시 로직 (UI 업데이트 등)

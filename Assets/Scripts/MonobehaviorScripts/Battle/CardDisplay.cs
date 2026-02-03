@@ -179,15 +179,18 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         cardCanvas.sortingOrder = 0;
         if(cardData.hasCardEffect == true && (cardData.cardType == CardType.Skill || cardData.cardType == CardType.Power) && BattleManager.Instance.CanUseCard(cardData.energyCost))
         {
-            foreach (CardEffect effect in cardData.cardEffect)
+            if(cardData.targetType != TargetType.Enemy || cardData.targetType != TargetType.AllEnemies)
             {
-                // 부모 틀에 정의된 Execute를 호출하면, 
-                // 실제 데이터(DamageEffect 등)에 따라 다르게 작동합니다. (다형성)
-                effect.Execute(PlayerController.Instance.gameObject, this.gameObject, cardData);
+                foreach (CardEffect effect in cardData.cardEffect)
+                {
+                    // 부모 틀에 정의된 Execute를 호출하면, 
+                    // 실제 데이터(DamageEffect 등)에 따라 다르게 작동합니다. (다형성)
+                    effect.Execute(PlayerController.Instance.gameObject, this.gameObject, cardData);
+                }
+                BattleManager.Instance.UseEnergy(cardData.energyCost);
+                DeckManager.Instance.DiscardCardDragged(cardData, eventData);
+                Destroy(gameObject);
             }
-            BattleManager.Instance.UseEnergy(cardData.energyCost);
-            DeckManager.Instance.DiscardCardDragged(cardData, eventData);
-            Destroy(gameObject);
         }
     }
 
