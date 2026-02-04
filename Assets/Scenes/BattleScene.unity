@@ -2260,6 +2260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44d083df3e2c5434d911351c9bf4484b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BattleManager
+  player: {fileID: 2121594165}
   maxEnergy: 3
   currentEnergy: 0
   energyText: {fileID: 2139823881}
@@ -2268,6 +2269,8 @@ MonoBehaviour:
   enemyPrefab: {fileID: 5212445819959395560, guid: c8df1be854686a740af1b02893793742, type: 3}
   enemySpawnPoint: {fileID: 1217642429}
   rewardUI: {fileID: 1376609362}
+  vulnerable: {fileID: 11400000, guid: 64945db383b0f9e4baeece074a4695ee, type: 2}
+  power: {fileID: 11400000, guid: 8f775ff18b686a8479f29a646a07cb3a, type: 2}
 --- !u!4 &882232862
 Transform:
   m_ObjectHideFlags: 0

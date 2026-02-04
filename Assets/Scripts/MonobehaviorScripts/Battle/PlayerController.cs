@@ -129,6 +129,11 @@ public class PlayerController : MonoBehaviour
     {
         OnBlockChanged?.Invoke(currentBlock);
     }
+
+    public void HealthChangedInvoker()
+    {
+        OnHealthChanged?.Invoke(currentHP, playerData.maxHP);
+    }
     //getter/setter--------------------------
     public int CurrentBlockGetter()
     {

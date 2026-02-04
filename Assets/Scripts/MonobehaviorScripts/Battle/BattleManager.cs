@@ -8,7 +8,8 @@ using UnityEngine.UI;
 public class BattleManager : MonoBehaviour
 {
     public static BattleManager Instance; // 접근 편의를 위한 싱글톤
-
+    [Header("Player")]
+    [SerializeField] private GameObject player;
     [Header("Energy Settings")]
     [SerializeField] private int maxEnergy = 3;
     [SerializeField] private int currentEnergy;
@@ -24,15 +25,21 @@ public class BattleManager : MonoBehaviour
 
     [SerializeField] private RewardUI rewardUI; // RewardCanvas와 연결된 스크립트
 
+    [Header("Statuses")]
+    [SerializeField] private StatusEffect vulnerable;
+    [SerializeField] private StatusEffect power;
     private Enemy _currentEnemy; // 현재 소환된 적 참조 저장
     private List<Enemy> activeEnemies = new List<Enemy>();
 
     private BattleState currentState;//현재 턴의 상태를 저장
 
     private List<StatusController> _allControllers = new List<StatusController>();
+    StatusController playerStatus;
     public void RegisterEntity(StatusController controller) => _allControllers.Add(controller);
 
     private bool isFirstTurn;
+
+    private bool IsInfiniteGrowth = false;
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -52,6 +59,7 @@ public class BattleManager : MonoBehaviour
         ResetEnergy();
         RelicManager.Instance.NotifyTurnStart();
         currentState = BattleState.PlayerTurn;
+        playerStatus = PlayerController.Instance.StatusControllerGetter();
     }
     //에너지관리-----------------------------------------------------------------------
     // 에너지를 최대치로 초기화 (턴 시작 시 호출 예정)
@@ -123,6 +131,7 @@ public class BattleManager : MonoBehaviour
 
     public void WinBattle()
     {
+        IsInfiniteGrowth = false;
         activeEnemies.Clear(); // 중복 실행 방지
         Debug.Log("전투 승리!");
         PlayerController.Instance.SetHpAfterBattle();
@@ -153,6 +162,10 @@ public class BattleManager : MonoBehaviour
 
     IEnumerator EndPlayerTurn()
     {
+        if(IsInfiniteGrowth == true)
+        {
+            playerStatus.AddStatus(power, player, 1, -1);
+        }
         Debug.Log("적의 턴!");
         // 1. 플레이어 조작 비활성화 (UI 클릭 방지 등)
         currentState = BattleState.EnemyTurn;
@@ -231,5 +244,10 @@ public class BattleManager : MonoBehaviour
     public List<Enemy> ActiveEnemiesGetter()
     {
         return activeEnemies;
+    }
+    //-------------------------------------
+    public void InfiniteGrowthHelper()
+    {
+        IsInfiniteGrowth = true;
     }
 }

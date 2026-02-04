@@ -22,6 +22,7 @@ public class Enemy : MonoBehaviour, IDropHandler
     [SerializeField] private StatusController enemyStatus;
     private StatusController playerStatus;
 
+    private int lastDamage;
     private void Awake()
     {
         init();
@@ -60,6 +61,7 @@ public class Enemy : MonoBehaviour, IDropHandler
     {
         int checkingDamage = playerStatus.DamageCheck(amount);
         int finalDamage =  enemyStatus.DamageCheck(checkingDamage);
+        lastDamage = finalDamage;
         _currentHp -= finalDamage;
         _currentHp = Mathf.Clamp(_currentHp, 0, enemyData[enemyWho].maxHp); // 체력 하한/상한 고정
 
@@ -167,5 +169,10 @@ public class Enemy : MonoBehaviour, IDropHandler
     public int CurrentHpGetter()
     {
         return _currentHp;
+    }
+
+    public int LastDamageGetter()
+    {
+        return lastDamage;
     }
 }
