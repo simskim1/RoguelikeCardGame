@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -22,6 +23,8 @@ public class PlayerController : MonoBehaviour
     private UnityEngine.UI.Image _playerImage;
 
     [SerializeField]private StatusController status;
+
+    private List<AbstractPower> playerPower = new List<AbstractPower>();
 
     //다양한 카드들에 의한 변수들----------------------------------
     private bool GuardStance = false;
@@ -108,6 +111,10 @@ public class PlayerController : MonoBehaviour
             }
             OnHealthChanged?.Invoke(currentHP, playerData.maxHP); // UI 갱신
         }
+        foreach (AbstractPower p in playerPower)
+        {
+            p.onLoseHp();
+        }
 
         // 피격 애니메이션 등 재생
     }
@@ -134,6 +141,11 @@ public class PlayerController : MonoBehaviour
     {
         OnHealthChanged?.Invoke(currentHP, playerData.maxHP);
     }
+
+    public void PowerAdder(AbstractPower power)
+    {
+        playerPower.Add(power);
+    }
     //getter/setter--------------------------
     public int CurrentBlockGetter()
     {
@@ -153,6 +165,13 @@ public class PlayerController : MonoBehaviour
     public void CurrentHpAdder(int amt)
     {
         currentHP += amt;
+        if(amt < 0)
+        {
+            foreach (AbstractPower p in playerPower)
+            {
+                p.onLoseHp();
+            }
+        }
     }
 
     public PlayerData PlayerDataGetter()
