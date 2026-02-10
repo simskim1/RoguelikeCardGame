@@ -11,4 +11,5 @@ public abstract class AbstractPower : ScriptableObject
     public virtual void atStartOfTurn() { }
     public virtual void onDamageAllEnemies() { }
     public virtual void onLoseHp() { }
+    public virtual void onHaveGuard10() { }
 }

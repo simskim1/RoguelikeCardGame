@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     [Header("Runtime State")]
     [SerializeField] private int currentHP;
     [SerializeField] private int currentBlock;
+    private int block10Check = 0;
 
     // UI 업데이트를 위한 이벤트를 쓰면 좋습니다 (옵저버 패턴의 기초)
     public event System.Action<int, int> OnHealthChanged; // <Current, Max>
@@ -130,6 +131,8 @@ public class PlayerController : MonoBehaviour
     public void SetHpAfterBattle()
     {
         playerData.currentHP = currentHP;
+        block10Check = 0;
+        playerPower.Clear();
     }
 
     public void BlockChangedInvoker()
@@ -154,6 +157,24 @@ public class PlayerController : MonoBehaviour
 
     public void CurrentBlockAdder(int amt)
     {
+        if(amt + block10Check >= 10)
+        {
+            int res = amt + block10Check;
+            int i = res / 10;
+            int j = res % 10;
+            block10Check = j;
+            for(int k = 0; k <i;  k++)
+            {
+                foreach (AbstractPower p in playerPower)
+                {
+                    p.onHaveGuard10();
+                }
+            }
+        }
+        else
+        {
+            block10Check += amt;
+        }
         currentBlock += amt;
     }
 
