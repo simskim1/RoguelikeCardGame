@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 60076e8d88772474aaa3bea8f139bddc
+guid: 2be1bf8c848955e49a86022c0c71099a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5711848221618334454
-    second: Knight_0
+      213: 4885613115316566115
+    second: GuardStance_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,12 +113,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Knight_0
+      name: GuardStance_0
       rect:
         serializedVersion: 2
-        x: 248
+        x: 0
         y: 0
-        width: 648
+        width: 1024
         height: 1024
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a051e7b1e407bb0b0800000000000000
-      internalID: -5711848221618334454
+      spriteID: 368fe684e3f2dc340800000000000000
+      internalID: 4885613115316566115
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Knight_0: -5711848221618334454
+      GuardStance_0: 4885613115316566115
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

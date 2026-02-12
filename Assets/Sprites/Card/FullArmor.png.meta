@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 60076e8d88772474aaa3bea8f139bddc
+guid: f56ca177f209e4f409414cdfb55d09e2
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5711848221618334454
-    second: Knight_0
+      213: 3763202424965128486
+    second: FullArmor_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,12 +113,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Knight_0
+      name: FullArmor_0
       rect:
         serializedVersion: 2
-        x: 248
+        x: 0
         y: 0
-        width: 648
+        width: 1024
         height: 1024
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a051e7b1e407bb0b0800000000000000
-      internalID: -5711848221618334454
+      spriteID: 6216fedcaa4993430800000000000000
+      internalID: 3763202424965128486
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Knight_0: -5711848221618334454
+      FullArmor_0: 3763202424965128486
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
