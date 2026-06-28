@@ -19,10 +19,13 @@ public class CardSlotUI : MonoBehaviour
 
     private CardData _cardData;
     private Button _button;
+    private RewardUI rewardUI;
     // RewardUI에서 호출할 초기화 함수
-    public void Setup(CardData data)
+    public void Setup(CardData data, RewardUI ui)
     {
-        _cardData = data; // 이 슬롯이 들고 있을 카드 정보 저장
+        _cardData = data;
+        rewardUI = ui;
+        // 이 슬롯이 들고 있을 카드 정보 저장
         if (data == null) return;
 
         cardNameText.text = data.cardName;
@@ -58,7 +61,7 @@ public class CardSlotUI : MonoBehaviour
         DeckManager.Instance.AddCardToMasterDeck(_cardData);
 
         // 2. 보상 UI 닫기 (부모인 RewardUI의 함수 호출)
-        GetComponentInParent<RewardUI>().ClosePanel();
+        rewardUI.ClosePanel();
 
         UnityEngine.Debug.Log($"{_cardData.cardName} 선택됨!");
     }

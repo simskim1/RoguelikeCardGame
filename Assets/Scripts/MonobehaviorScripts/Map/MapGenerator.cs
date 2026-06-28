@@ -16,8 +16,17 @@ public class MapGenerator : MonoBehaviour
             int nodesInFloor = Random.Range(3, 6);
             for (int x = 0; x < nodesInFloor; x++)
             {
-                NodeType type = (y == 9) ? NodeType.Boss : NodeType.Battle;
-                type = (y == 4) ? NodeType.Rest : NodeType.Battle;
+                NodeType type = NodeType.Battle;
+                if(y == 9)
+                {
+                    type = NodeType.Boss;
+                }
+                else if(y == 4)
+                {
+                    type = NodeType.Rest;
+                }
+                    //NodeType type = (y == 9) ? NodeType.Boss : NodeType.Battle;
+                    //type = (y == 4) ? NodeType.Rest : NodeType.Battle;
                 mapData.nodes.Add(new MapNode(x, y, type));
             }
         }

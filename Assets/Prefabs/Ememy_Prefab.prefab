@@ -298,6 +298,8 @@ MonoBehaviour:
   enemyData:
   - {fileID: 11400000, guid: ee9e30dc0cb7d3f40bbbd9614c998672, type: 2}
   - {fileID: 11400000, guid: 21eab2078dc5f8f46b758f4ac02fba73, type: 2}
+  bossData: []
+  playerData: {fileID: 11400000, guid: e1ad432dacdb3034f9e4620355b0586e, type: 2}
   hpSlider: {fileID: 2889280559248356815}
   enemyUI: {fileID: 2873365155008844826}
   enemyStatus: {fileID: 0}

@@ -72,7 +72,7 @@ public class MapManager : MonoBehaviour
                         playerData.playerNode = PlayerNode;
 
                         // 전투 노드라면 전투 씬으로!
-                        if (selectedNode.nodeType == NodeType.Battle)
+                        if (selectedNode.nodeType == NodeType.Battle || selectedNode.nodeType == NodeType.Boss)
                         {
                             UnityEngine.SceneManagement.SceneManager.LoadScene("BattleScene");
                         }

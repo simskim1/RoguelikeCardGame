@@ -10,6 +10,10 @@ public class Enemy : MonoBehaviour, IDropHandler
 {
 
     [SerializeField] private EnemyData[] enemyData;//일단은 배열이 하나이지만, 나중에 래퍼 클래스를 이용하여 랜덤으로 결정된 어느 챕터의 일반, 엘리트, 또는 보스의 어느 몬스터가 나올지를 결정하게 할 수 있다.
+    [SerializeField] private EnemyData[] bossData;
+
+    [SerializeField] private PlayerData playerData;
+
     private int enemyWho;
     private int _currentHp;
 
@@ -31,14 +35,21 @@ public class Enemy : MonoBehaviour, IDropHandler
     void init()
     {
         enemyWho = Random.Range(0, 2);
+        bool isBoss = false;
+        if(playerData.playerNode.nodeType == NodeType.Boss)
+        {
+            isBoss = true;
+        }
         // 자신의 Image 컴포넌트 가져오기
         _enemyImage = GetComponent<Image>();
 
         if (enemyData != null)
         {
+            Debug.Log("이미지 체크");
             // SO에 저장된 이미지로 변경
             if (_enemyImage != null && enemyData[enemyWho].enemyImage != null)
             {
+                Debug.Log("이미지수행");
                 _enemyImage.sprite = enemyData[enemyWho].enemyImage;//이 오브젝트의 컴포넌트인 ememyimage의 스프라이트를 enemyData에 저장된 이미지로 변경
             }
 

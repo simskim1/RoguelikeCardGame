@@ -18,13 +18,14 @@ public class CardDatabase : MonoBehaviour
         // 1. 원본 리스트를 복사 (원본 데이터 보호)
         List<CardData> shuffleList = new List<CardData>(allCards);
         List<CardData> result = new List<CardData>();
-
+        
         // 2. Fisher-Yates Shuffle 알고리즘
         // 뒤에서부터 앞으로 오면서 무작위 요소와 스왑
         for (int i = shuffleList.Count - 1; i > 0; i--)
         {
             int randomIndex = Random.Range(0, i + 1);
             CardData temp = shuffleList[i];
+            
             shuffleList[i] = shuffleList[randomIndex];
             shuffleList[randomIndex] = temp;
         }
@@ -32,6 +33,28 @@ public class CardDatabase : MonoBehaviour
         // 3. 섞인 리스트에서 앞에서부터 count만큼 추출
         for (int i = 0; i < count && i < shuffleList.Count; i++)
         {
+            int gradeRandom = Random.Range(0, 100);
+            int selectedCard = Random.Range(0, shuffleList.Count);
+            if (gradeRandom >= 40 && shuffleList[selectedCard].rarity == CardRarity.Common)
+            {
+                i--;
+                continue;
+            }
+            else if (gradeRandom >= 70 && shuffleList[selectedCard].rarity == CardRarity.Uncommon)
+            {
+                i--;
+                continue;
+            }
+            else if (gradeRandom >= 90 && shuffleList[selectedCard].rarity == CardRarity.Rare)
+            {
+                i--;
+                continue;
+            }
+            else if (gradeRandom >= 40 && shuffleList[selectedCard].rarity == CardRarity.Special)
+            {
+                i--;
+                continue;
+            }
             result.Add(shuffleList[i]);
         }
 

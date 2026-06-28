@@ -6,6 +6,7 @@ public class RewardUI : MonoBehaviour
     [SerializeField] private GameObject panel;
     [SerializeField] private Transform slotParent; // Horizontal Layout Group이 있는 곳
     [SerializeField] private GameObject cardSlotPrefab;
+    [SerializeField] private GameObject endBackground;
 
     public void ShowRewardPanel()
     {
@@ -35,7 +36,7 @@ public class RewardUI : MonoBehaviour
             });*/
 
             // UI 업데이트 (이름, 이미지 등)
-            slotGo.GetComponent<CardSlotUI>().Setup(card);
+            slotGo.GetComponent<CardSlotUI>().Setup(card, this);
             
             
         }
@@ -44,6 +45,7 @@ public class RewardUI : MonoBehaviour
     public void ClosePanel()
     {
         panel.SetActive(false);
+        endBackground.SetActive(true);
         // 다음 스테이지로 이동하는 로직 추가 가능
     }
 }

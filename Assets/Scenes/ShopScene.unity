@@ -1172,14 +1172,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CardDatabaseShop
   Common:
-  - {fileID: 11400000, guid: 407d6aca3b14d4e4e82ea3cd84b2f007, type: 2}
-  - {fileID: 11400000, guid: b07e60bab129c2f41a341cee64639729, type: 2}
+  - {fileID: 11400000, guid: 8d82b55ea1b94974eab1d3778b6e958b, type: 2}
+  - {fileID: 11400000, guid: 1ed5b259d54aeb049b7d374cf79f2ab1, type: 2}
+  - {fileID: 11400000, guid: 9bdfd7a9aab281040b9c2646da340a50, type: 2}
+  - {fileID: 11400000, guid: caac8e9194655954481ceb36624eb8d7, type: 2}
+  - {fileID: 11400000, guid: 7e53cb954020e3740b189e3f87aee3ad, type: 2}
   Uncommon:
   - {fileID: 11400000, guid: 64d7cd3e4496b5c4f81586c47a09f74b, type: 2}
+  - {fileID: 11400000, guid: 9d15ae5752bde5742ab7fbfc7655f608, type: 2}
+  - {fileID: 11400000, guid: d6fa95c27500247428f00a7aa9ca79b4, type: 2}
+  - {fileID: 11400000, guid: 1bc867c3e26d7d14d910ae46e769e92c, type: 2}
+  - {fileID: 11400000, guid: cbc00bf264faa0540ba37425f71751ff, type: 2}
+  - {fileID: 11400000, guid: 9fc10b98055f40f4eb2d9174741311a9, type: 2}
+  - {fileID: 11400000, guid: 289ba20a53486ec44a822590ad923f9c, type: 2}
+  - {fileID: 11400000, guid: e76b81a463bc144468d81c37f7780332, type: 2}
+  - {fileID: 11400000, guid: a0f698c95b070d14db3b844a8d841978, type: 2}
+  - {fileID: 11400000, guid: fda5f91ade1df9f42a8709c4d7a26a41, type: 2}
+  - {fileID: 11400000, guid: 37e1ec3aa276bb441beeb8cff19e8f2e, type: 2}
   Rare:
   - {fileID: 11400000, guid: caac8e9194655954481ceb36624eb8d7, type: 2}
+  - {fileID: 11400000, guid: 1985bc9876294d648a101a8b5f609ab2, type: 2}
+  - {fileID: 11400000, guid: 59fe5237514d4634da57ae21a35cd086, type: 2}
+  - {fileID: 11400000, guid: 8ad3710fe09b1584280fe84de1fd20df, type: 2}
+  - {fileID: 11400000, guid: 6bded333e0261fa4b8ee9b9f7e67d514, type: 2}
+  - {fileID: 11400000, guid: ef9d96cdb38d13748baa9ef3694eaa84, type: 2}
+  - {fileID: 11400000, guid: 78b37a1cecd05b34a8ac6d4f526ce8fe, type: 2}
   Special:
   - {fileID: 11400000, guid: e7613b9e409313141a5a3977dc535a65, type: 2}
+  - {fileID: 11400000, guid: 2fb201672e200454db2a4d25d67e69ab, type: 2}
+  - {fileID: 11400000, guid: 1cb087a0ef2a90c488d9687cfe991324, type: 2}
+  - {fileID: 11400000, guid: e0283ccb95b397b41b4f5d64f5cf56a7, type: 2}
+  - {fileID: 11400000, guid: ff64cbf30d87a22428d24a233b9d17b8, type: 2}
+  - {fileID: 11400000, guid: 17c6b7b6816d87c4aa5be14f6b6032ab, type: 2}
 --- !u!4 &358647836
 Transform:
   m_ObjectHideFlags: 0
