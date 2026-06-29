@@ -46,6 +46,7 @@ public class RewardUI : MonoBehaviour
     {
         panel.SetActive(false);
         endBackground.SetActive(true);
+        
         // 다음 스테이지로 이동하는 로직 추가 가능
     }
 }

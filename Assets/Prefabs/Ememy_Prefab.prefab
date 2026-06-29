@@ -298,8 +298,10 @@ MonoBehaviour:
   enemyData:
   - {fileID: 11400000, guid: ee9e30dc0cb7d3f40bbbd9614c998672, type: 2}
   - {fileID: 11400000, guid: 21eab2078dc5f8f46b758f4ac02fba73, type: 2}
-  bossData: []
+  bossData:
+  - {fileID: 11400000, guid: 7045fbb79701e5e409d87e0e02eefb42, type: 2}
   playerData: {fileID: 11400000, guid: e1ad432dacdb3034f9e4620355b0586e, type: 2}
+  playerController: {fileID: 0}
   hpSlider: {fileID: 2889280559248356815}
   enemyUI: {fileID: 2873365155008844826}
   enemyStatus: {fileID: 0}
@@ -316,6 +318,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StatusController
   activeStatuses: []
+  buff:
+  - {fileID: 11400000, guid: 8f775ff18b686a8479f29a646a07cb3a, type: 2}
+  debuff: []
 --- !u!1 &6373567156622668414
 GameObject:
   m_ObjectHideFlags: 0

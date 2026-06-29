@@ -8,6 +8,7 @@ public class EnemyData : ScriptableObject
     public int maxHp;
     public List<EnemyAction> actions;//적의 Action설정
 
+    public List<EnemySpecialEffect> statusEffects;
     public Sprite enemyImage;
 
     [System.Serializable]

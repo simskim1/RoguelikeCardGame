@@ -5,6 +5,8 @@ public class StatusController : MonoBehaviour
 {
     private float finalDamage;
     public List<StatusInstance> activeStatuses = new List<StatusInstance>();
+    public List<StatusEffect> buff = new List<StatusEffect>();
+    public List<StatusEffect> debuff = new List<StatusEffect>();
 
     public event System.Action OnStatusChanged; // 상태 변화를 알리는 이벤트
 
