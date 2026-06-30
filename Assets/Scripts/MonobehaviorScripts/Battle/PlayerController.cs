@@ -78,9 +78,11 @@ public class PlayerController : MonoBehaviour
         OnBlockChanged?.Invoke(currentBlock);
     }
 
-    public void TakeDamage(int damageAmount)
+    public void TakeDamage(int damageAmount, StatusController enemy)
     {
         int damageToTake = damageAmount;
+        damageToTake = enemy.DamageCheck(damageToTake, this.gameObject);
+        damageToTake = status.DamageCheck(damageToTake, this.gameObject);
 
         // 1. 방어력이 있다면 방어력부터 깎음
         if (currentBlock > 0)

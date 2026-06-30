@@ -9,6 +9,7 @@ public abstract class StatusEffect : ScriptableObject
 
     public Sprite icon;
     public bool isDebuff;
+    public bool activateWhenAttack;
 
     // 상태 이상이 부여될 때 실행
     public virtual void OnApply(GameObject target, int stacks) { }

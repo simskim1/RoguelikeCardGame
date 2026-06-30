@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class StatusController : MonoBehaviour
@@ -49,7 +50,35 @@ public class StatusController : MonoBehaviour
     }
 
     //적이 데미지를 받을 때는 자기 자신의 버프/ 디버프와 플레이어의 버프 디버프 체크, 반대도 마친가지 이므로 각각 Enemy.TakeDamage와 Enemy.TakeAction에서 수행
-    public int DamageCheck(float incomingDamage)
+
+
+    public int DamageCheck(float incomingDamage, GameObject defender)
+    {
+        float currentCalculatedDamage = incomingDamage;
+
+        // 현재 StatusController의 주인이 방어자(defender)가 아니라면, 나는 '공격자'입니다.
+        bool isAttacker = (this.gameObject != defender);
+
+        for (int i = activeStatuses.Count - 1; i >= 0; i--)
+        {
+            var inst = activeStatuses[i];
+
+            // 1. 내가 공격자이고, 효과도 '공격 시' 발동하는 효과일 때 (예: 근력, 약화)
+            if (isAttacker && inst.effectData.activateWhenAttack)
+            {
+                currentCalculatedDamage = inst.effectData.OnProcessDamage(currentCalculatedDamage, inst);
+            }
+            // 2. 내가 방어자이고, 효과도 '피격(방어) 시' 발동하는 효과일 때 (예: 취약, 방어력 증가)
+            else if (!isAttacker && !inst.effectData.activateWhenAttack)
+            {
+                currentCalculatedDamage = inst.effectData.OnProcessDamage(currentCalculatedDamage, inst);
+            }
+        }
+
+        return (int)currentCalculatedDamage;
+    }
+    /*
+    public int DamageCheck(float incomingDamage, GameObject turnPlayer)
     {
         // 1. 초기값을 입력받은 데미지로 설정
         float currentCalculatedDamage = incomingDamage;
@@ -59,12 +88,24 @@ public class StatusController : MonoBehaviour
         {
             Debug.Log($"순회 중인 효과: {activeStatuses[i].effectData.name}");
             var inst = activeStatuses[i];
-
-            // 2. 중요: '이전까지 계산된 값'을 넣고 '새 결과'로 갱신함 (누적)
-            currentCalculatedDamage = inst.effectData.OnProcessDamage(currentCalculatedDamage, inst);
+            if (!inst.effectData.isDebuff && turnPlayer != this.gameObject)
+            {
+                Debug.Log("버프실행");
+                // 2. 중요: '이전까지 계산된 값'을 넣고 '새 결과'로 갱신함 (누적)
+                currentCalculatedDamage = inst.effectData.OnProcessDamage(currentCalculatedDamage, inst);
+            }
+            else if(turnPlayer == this.gameObject)
+            {
+                continue;
+            }
+            else
+            {
+                currentCalculatedDamage = inst.effectData.OnProcessDamage(currentCalculatedDamage, inst);
+            }
         }
 
         // 3. 최종적으로 모든 연산이 끝난 값을 반환
         return Mathf.RoundToInt(currentCalculatedDamage);
     }
+    */
 }

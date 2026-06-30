@@ -82,8 +82,8 @@ public class Enemy : MonoBehaviour, IDropHandler
 
     public void TakeDamage(int amount)
     {
-        int checkingDamage = playerStatus.DamageCheck(amount);
-        int finalDamage =  enemyStatus.DamageCheck(checkingDamage);
+        int checkingDamage = playerStatus.DamageCheck(amount, this.gameObject);
+        int finalDamage =  enemyStatus.DamageCheck(checkingDamage, this.gameObject);
         lastDamage = finalDamage;
         _currentHp -= finalDamage;
         _currentHp = Mathf.Clamp(_currentHp, 0, enemyThis.maxHp); // 체력 하한/상한 고정
@@ -177,7 +177,7 @@ public class Enemy : MonoBehaviour, IDropHandler
         
         if (nextAction.type == IntentType.Attack)
         {
-            PlayerController.Instance.TakeDamage(nextAction.value);
+            PlayerController.Instance.TakeDamage(nextAction.value, enemyStatus);
         }
         else if (nextAction.type == IntentType.Strategic)
         {

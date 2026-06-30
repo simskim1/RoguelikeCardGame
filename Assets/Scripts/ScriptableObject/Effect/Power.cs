@@ -25,6 +25,7 @@ public class Power : StatusEffect
         }
         else
         {
+            Debug.Log("위조건을 만족하지 못합니다. 코드를 확인하십시오.");
             return damage;
         }
     }

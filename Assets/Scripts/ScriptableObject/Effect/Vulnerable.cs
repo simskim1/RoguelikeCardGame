@@ -4,6 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Vulnerable", menuName = "Status/Vulnerable")]
 public class Vulnerable : StatusEffect
 {
+
     
     public override float OnProcessDamage(float damage, StatusInstance instance)
     {
