@@ -10,6 +10,13 @@ public class BattleManager : MonoBehaviour
     public static BattleManager Instance; // 접근 편의를 위한 싱글톤
     [Header("Player")]
     [SerializeField] private GameObject player;
+    [SerializeField] private DeckData deckData;
+
+    [Header("BaseDeckCards")]
+    [SerializeField] private CardData strike;
+    [SerializeField] private CardData guard;
+    [SerializeField] private CardData strongAttack;
+
     [Header("Energy Settings")]
     [SerializeField] private int maxEnergy = 3;
     [SerializeField] private int currentEnergy;
@@ -18,6 +25,8 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI energyText;
     [SerializeField] private Image energyIcon;          // 캐릭터에 따른 아이콘 변경을 나중에 구현하기 위해
     [SerializeField] private GameObject winButton;
+    [SerializeField] private GameObject winBattleScreen;
+    [SerializeField] private GameObject victoryButton;
 
     [Header("Enemy Spawning")]
     [SerializeField] private GameObject enemyPrefab; // 소환할 적 프리팹 영역. 이영역을 추가, 분할해서 챕터구분으로 사용도 가능
@@ -28,6 +37,9 @@ public class BattleManager : MonoBehaviour
     [Header("Statuses")]
     [SerializeField] private StatusEffect vulnerable;
     [SerializeField] private StatusEffect power;
+
+    [Header("MapData")]
+    [SerializeField] private MapData mapdata;
     private Enemy _currentEnemy; // 현재 소환된 적 참조 저장
     private List<Enemy> activeEnemies = new List<Enemy>();
 
@@ -114,6 +126,11 @@ public class BattleManager : MonoBehaviour
         // 뒤에서부터 앞으로 루프를 돕니다.
         for (int i = activeEnemies.Count - 1; i >= 0; i--)
         {
+            if (activeEnemies[i].CurrentHpGetter() <= 0 && activeEnemies[i].IsBossGetter())
+            {
+                WinGame();
+                return;
+            }
             if (activeEnemies[i].CurrentHpGetter() <= 0)
             {
                 activeEnemies.RemoveAt(i);
@@ -127,6 +144,25 @@ public class BattleManager : MonoBehaviour
             currentState = BattleState.Win;
             WinBattle();
         }
+    }
+
+    public void WinGame()
+    {
+        IsInfiniteGrowth = false;
+        activeEnemies.Clear(); // 중복 실행 방지
+        Debug.Log("전투 승리!");
+        PlayerController.Instance.SetHpAfterBattle();
+        DeckManager.Instance.DeckReset();
+        winBattleScreen.SetActive(true);
+        Button vic = victoryButton.GetComponent<Button>();
+        vic.onClick.AddListener(VicClick);
+    }
+
+    public void VicClick()
+    {
+        mapdata.nodes.Clear();
+
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MapScene");
     }
 
     public void WinBattle()

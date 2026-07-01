@@ -229,4 +229,9 @@ public class Enemy : MonoBehaviour, IDropHandler
     {
         return this.gameObject;
     }
+
+    public bool IsBossGetter()
+    {
+        return isBoss;
+    }
 }

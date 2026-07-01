@@ -28,6 +28,9 @@ public class MapManager : MonoBehaviour
             generator.GenerateMap();
             playerData.playerNode = null;
             mapData.currentFloor = -1;
+            playerData.currentRelic.Clear();
+            playerData.maxHP = 100;
+            playerData.currentHP = playerData.maxHP;
             playerData.money = 500;
             ResetDeck();
         }
