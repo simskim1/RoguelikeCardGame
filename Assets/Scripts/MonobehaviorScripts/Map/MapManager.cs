@@ -12,6 +12,7 @@ public class MapManager : MonoBehaviour
     [SerializeField] private PlayerData playerData;
     [SerializeField] private DeckData playerDeck;
     [SerializeField] private DeckData basicDeck;
+    [SerializeField] private GameObject StartImage;
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -33,6 +34,7 @@ public class MapManager : MonoBehaviour
             playerData.currentHP = playerData.maxHP;
             playerData.money = 500;
             ResetDeck();
+            StartImage.SetActive(true);
         }
         else
         {
